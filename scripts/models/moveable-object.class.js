@@ -1,6 +1,6 @@
 export class MoveableObject {
   x = 120;
-  y = 150;
+  y = 250;
   height = 150;
   width = 80;
   speed = 10;
