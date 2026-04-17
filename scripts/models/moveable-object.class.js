@@ -1,6 +1,9 @@
 export class MoveableObject {
-  x = 0;
-  y = 0;
+  x = 120;
+  y = 150;
+  height = 150;
+  width = 80;
+  speed = 10;
   img;
 
   constructor() {}

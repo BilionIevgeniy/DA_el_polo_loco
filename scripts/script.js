@@ -1,8 +1,9 @@
-import { Character } from "./models/character.class.js";
+import { World } from "./models/world.class.js";
 
 let canvas;
+let world;
 
 document.addEventListener("DOMContentLoaded", function () {
   canvas = document.getElementById("myCanvas");
-  const character = new Character();
+  world = new World(canvas);
 });
