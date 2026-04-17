@@ -1,13 +1,14 @@
 import { MoveableObject } from "./moveable-object.class.js";
 
 export class BackgroundObject extends MoveableObject {
-  constructor(imagePath) {
+  width = 720;
+
+  constructor(imagePath, x,height) {
     super();
+    this.height = height;
     this.loadImage(imagePath);
-    this.x = 0;
-    this.y = 0;
-    this.width = 720;
-    this.height = 500;
+    this.x = x;
+    this.y = 480 - this.height;
   }
 
   loadImage(imagePath) {
