@@ -1,7 +1,9 @@
 import { MoveableObject } from "./moveable-object.class.js";
 
 export class Chicken extends MoveableObject {
-  y = 290;
+  y = 360;
+  height = 60;
+  width = 60;
   constructor() {
     super();
     this.loadImage(
