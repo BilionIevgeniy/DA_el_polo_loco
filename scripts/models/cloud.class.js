@@ -18,7 +18,7 @@ export class Cloud extends MoveableObject {
       if (this.x < -this.width) {
         this.x = 720;
       }
-    }, 0.01);
+    }, 1000 / 60);
   }
 
   jump() {}

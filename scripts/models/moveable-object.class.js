@@ -4,12 +4,21 @@ export class MoveableObject {
   height = 150;
   width = 100;
   img;
+  images = [];
 
   constructor() {}
 
   loadImage(path) {
     this.img = new Image();
     this.img.src = path;
+  }
+
+  loadImages(arr) {
+    arr.forEach((path) => {
+      let img = new Image();
+      img.src = path;
+      this.images[path] = img;
+    });
   }
 
   drawImage() {
