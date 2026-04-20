@@ -5,7 +5,7 @@ import { Cloud } from "./cloud.class.js";
 
 export class World {
   character = new Character();
-  cloud = [new Cloud()];
+  cloud = [new Cloud(50, 0), new Cloud(100, 250), new Cloud(150, 500)];
   enemies = [new Chicken(), new Chicken(), new Chicken()];
   backgroundObjects = [
     new BackgroundObject("assets/img/5_background/layers/air.png", 0, 480),
