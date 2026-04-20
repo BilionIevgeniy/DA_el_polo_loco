@@ -1,6 +1,7 @@
 import { MoveableObject } from "./moveable-object.class.js";
 
 export class Cloud extends MoveableObject {
+  speed = 0.15;
   constructor(y, x) {
     super();
     this.loadImage("assets/img/5_background/layers/4_clouds/1.png");
@@ -12,13 +13,7 @@ export class Cloud extends MoveableObject {
   }
 
   animate() {
-    setInterval(() => {
-      this.x -= 0.15;
-
-      if (this.x < -this.width) {
-        this.x = 720;
-      }
-    }, 1000 / 60);
+    this.moveLeft();
   }
 
   jump() {}

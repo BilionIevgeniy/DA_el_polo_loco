@@ -4,7 +4,7 @@ export class MoveableObject {
   height = 150;
   width = 100;
   img;
-  images = [];
+  images = {};
 
   constructor() {}
 
@@ -27,7 +27,14 @@ export class MoveableObject {
     };
   }
 
-  moveLeft() {}
+  moveLeft() {
+    setInterval(() => {
+      this.x -= this.speed;
+      if (this.x < -this.width) {
+        this.x = 720;
+      }
+    }, 1000 / 60);
+  }
 
   moveRight() {}
 
