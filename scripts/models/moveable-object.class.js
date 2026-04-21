@@ -3,7 +3,6 @@ export class MoveableObject {
   y = 280;
   height = 150;
   width = 100;
-  img;
   images = {};
 
   constructor() {}
@@ -34,15 +33,5 @@ export class MoveableObject {
         this.x = 720;
       }
     }, 1000 / 60);
-  }
-
-  moveRight() {}
-
-  moveUp() {
-    this.y -= this.speed;
-  }
-
-  moveDown() {
-    this.y += this.speed;
   }
 }

@@ -28,7 +28,6 @@ export class Keyboard {
         this.SPACE = true;
         break;
     }
-    this.logState();
   }
 
   keyUpHandler(e) {
@@ -49,12 +48,5 @@ export class Keyboard {
         this.SPACE = false;
         break;
     }
-    this.logState();
-  }
-
-  logState() {
-    console.log(
-      `LEFT: ${this.LEFT}, RIGHT: ${this.RIGHT}, UP: ${this.UP}, DOWN: ${this.DOWN}, SPACE: ${this.SPACE}`,
-    );
   }
 }

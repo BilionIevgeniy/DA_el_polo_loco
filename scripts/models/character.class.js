@@ -1,36 +1,58 @@
+import { characterImagesPaths } from "./constants.js";
 import { MoveableObject } from "./moveable-object.class.js";
 
-const imagesPaths = [
-  "assets/img/2_character_pepe/2_walk/W-21.png",
-  "assets/img/2_character_pepe/2_walk/W-22.png",
-  "assets/img/2_character_pepe/2_walk/W-23.png",
-  "assets/img/2_character_pepe/2_walk/W-24.png",
-  "assets/img/2_character_pepe/2_walk/W-25.png",
-  "assets/img/2_character_pepe/2_walk/W-26.png",
-];
 export class Character extends MoveableObject {
   height = 280;
   width = 150;
   y = 155;
   currentImage = 0;
+  keyboard;
+  speed = 5;
+  flipped = false;
 
   constructor() {
     super();
-    this.loadImages(imagesPaths);
+    this.loadImage(characterImagesPaths[0]);
+    this.loadImages(characterImagesPaths);
     this.animate();
   }
 
   animate() {
-    this.changeImage();
     setInterval(() => {
-      this.changeImage();
-    }, 200);
+      if (this.keyboard.RIGHT) {
+        this.moveRight();
+      }
+      if (this.keyboard.LEFT) {
+        this.moveLeft();
+      }
+      if (this.keyboard.UP) {
+        this.moveUp();
+      }
+      if (this.keyboard.DOWN) {
+        this.moveDown();
+      }
+    }, 60);
   }
 
-  changeImage() {
-    let i = this.currentImage % imagesPaths.length;
-    let path = imagesPaths[i];
+  set setKeyboard(keyboard) {
+    this.keyboard = keyboard;
+  }
+
+  moveRight() {
+    let i = this.currentImage % characterImagesPaths.length;
+    let path = characterImagesPaths[i];
     this.img = this.images[path];
+    this.flipped = false;
+    this.x += this.speed;
+    this.currentImage++;
+  }
+
+  moveLeft() {
+    let i = this.currentImage % characterImagesPaths.length;
+    let path = characterImagesPaths[i];
+    this.img = this.images[path];
+    this.flipped = true;
+    this.x -= this.speed;
     this.currentImage++;
   }
 
