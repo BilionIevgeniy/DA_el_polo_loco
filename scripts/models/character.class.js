@@ -6,12 +6,12 @@ export class Character extends MoveableObject {
   width = 150;
   y = 155;
   currentImage = 0;
-  keyboard;
-  speed = 5;
+  speed = 15;
   flipped = false;
 
-  constructor() {
+  constructor(canvas) {
     super();
+    this.canvas = canvas;
     this.loadImage(characterImagesPaths[0]);
     this.loadImages(characterImagesPaths);
     this.animate();
@@ -19,23 +19,19 @@ export class Character extends MoveableObject {
 
   animate() {
     setInterval(() => {
-      if (this.keyboard.RIGHT) {
+      if (this.canvas.keyboard.RIGHT) {
         this.moveRight();
       }
-      if (this.keyboard.LEFT) {
+      if (this.canvas.keyboard.LEFT) {
         this.moveLeft();
       }
-      if (this.keyboard.UP) {
+      if (this.canvas.keyboard.UP) {
         this.moveUp();
       }
-      if (this.keyboard.DOWN) {
+      if (this.canvas.keyboard.DOWN) {
         this.moveDown();
       }
     }, 60);
-  }
-
-  set setKeyboard(keyboard) {
-    this.keyboard = keyboard;
   }
 
   moveRight() {
@@ -45,6 +41,7 @@ export class Character extends MoveableObject {
     this.flipped = false;
     this.x += this.speed;
     this.currentImage++;
+    this.canvas.kamera_x -= this.speed;
   }
 
   moveLeft() {
@@ -54,6 +51,7 @@ export class Character extends MoveableObject {
     this.flipped = true;
     this.x -= this.speed;
     this.currentImage++;
+    this.canvas.kamera_x += this.speed;
   }
 
   jump() {}

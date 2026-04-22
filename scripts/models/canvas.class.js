@@ -5,28 +5,38 @@ import { Cloud } from "./cloud.class.js";
 import { Keyboard } from "./keyboard.class.js";
 
 export class Canvas {
+  kamera_x = 0;
   constructor() {
-    this.character = new Character();
-    this.cloud = [new Cloud(50, 0), new Cloud(100, 250), new Cloud(150, 500)];
-    this.enemies = [new Chicken(), new Chicken(), new Chicken()];
-    this.backgroundObjects = [
-      new BackgroundObject("assets/img/5_background/layers/air.png", 0, 480),
-      new BackgroundObject(
-        "assets/img/5_background/layers/3_third_layer/1.png",
-        0,
-        400,
-      ),
-      new BackgroundObject(
-        "assets/img/5_background/layers/2_second_layer/1.png",
-        0,
-        400,
-      ),
-      new BackgroundObject(
-        "assets/img/5_background/layers/1_first_layer/1.png",
-        0,
-        400,
-      ),
-    ];
+    this.character = new Character(this);
+    this.cloud = [];
+    this.enemies = [];
+    this.backgroundObjects = [];
+    for (let i = 0; i < 5; i++) {
+      const x = 720 * i;
+      const imageNumber = (i % 2) + 1;
+      this.backgroundObjects.push(
+        new BackgroundObject("assets/img/5_background/layers/air.png", x, 480),
+        new BackgroundObject(
+          `assets/img/5_background/layers/3_third_layer/${imageNumber}.png`,
+          x,
+          400,
+        ),
+        new BackgroundObject(
+          `assets/img/5_background/layers/2_second_layer/${imageNumber}.png`,
+          x,
+          400,
+        ),
+        new BackgroundObject(
+          `assets/img/5_background/layers/1_first_layer/${imageNumber}.png`,
+          x,
+          400,
+        ),
+      );
+      this.cloud.push(
+        new Cloud(50 + Math.random() * 100, 720 * i + Math.random() * 200),
+      );
+      this.enemies.push(new Chicken());
+    }
     this.keyboard = new Keyboard();
   }
 
@@ -34,11 +44,6 @@ export class Canvas {
     this.canvas = document.getElementById("myCanvas");
     this.ctx = this.canvas.getContext("2d");
     this.draw();
-    this.setKeyboard();
-  }
-
-  setKeyboard() {
-    this.character.setKeyboard = this.keyboard;
   }
 
   draw() {
@@ -55,6 +60,7 @@ export class Canvas {
 
   drawImages(objArray) {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.ctx.translate(this.kamera_x, 0);
     objArray.forEach((obj) => {
       if (obj.flipped) {
         this.flipImage(obj);
@@ -62,6 +68,7 @@ export class Canvas {
         this.ctx.drawImage(obj.img, obj.x, obj.y, obj.width, obj.height);
       }
     });
+    this.ctx.translate(-this.kamera_x, 0);
   }
 
   flipImage(obj) {
