@@ -26,7 +26,7 @@ for (let i = 0; i < 3; i++) {
     ),
   );
 }
-for (let i = 0; i < 5; i++) {
+for (let i = 0; i < 3; i++) {
   const x = 720 * i;
   const imageNumber = (i % 2) + 1;
   backgroundObjects.push(

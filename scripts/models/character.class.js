@@ -19,10 +19,16 @@ export class Character extends MoveableObject {
 
   animate() {
     setInterval(() => {
-      if (this.canvas.keyboard.RIGHT) {
+      if (
+        this.canvas.keyboard.RIGHT &&
+        this.x < this.canvas.level.level_end_right_x
+      ) {
         this.moveRight();
       }
-      if (this.canvas.keyboard.LEFT && this.x - 150 > -720 * 2) {
+      if (
+        this.canvas.keyboard.LEFT &&
+        this.x - 150 > this.canvas.level.level_end_left_x
+      ) {
         this.moveLeft();
       }
       if (this.canvas.keyboard.UP) {
