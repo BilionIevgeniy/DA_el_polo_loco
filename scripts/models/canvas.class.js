@@ -1,42 +1,12 @@
-import { BackgroundObject } from "./background.object.class.js";
+import { level1 } from "../levels.js/level1.js";
 import { Character } from "./character.class.js";
-import { Chicken } from "./chicken.class.js";
-import { Cloud } from "./cloud.class.js";
 import { Keyboard } from "./keyboard.class.js";
 
 export class Canvas {
   kamera_x = 0;
+  level = level1;
   constructor() {
     this.character = new Character(this);
-    this.cloud = [];
-    this.enemies = [];
-    this.backgroundObjects = [];
-    for (let i = 0; i < 5; i++) {
-      const x = 720 * i;
-      const imageNumber = (i % 2) + 1;
-      this.backgroundObjects.push(
-        new BackgroundObject("assets/img/5_background/layers/air.png", x, 480),
-        new BackgroundObject(
-          `assets/img/5_background/layers/3_third_layer/${imageNumber}.png`,
-          x,
-          400,
-        ),
-        new BackgroundObject(
-          `assets/img/5_background/layers/2_second_layer/${imageNumber}.png`,
-          x,
-          400,
-        ),
-        new BackgroundObject(
-          `assets/img/5_background/layers/1_first_layer/${imageNumber}.png`,
-          x,
-          400,
-        ),
-      );
-      this.cloud.push(
-        new Cloud(50 + Math.random() * 100, 720 * i + Math.random() * 200),
-      );
-      this.enemies.push(new Chicken());
-    }
     this.keyboard = new Keyboard();
   }
 
@@ -48,10 +18,10 @@ export class Canvas {
 
   draw() {
     this.drawImages([
-      ...this.backgroundObjects,
-      ...this.cloud,
+      ...this.level.backgroundObjects,
+      ...this.level.cloud,
       this.character,
-      ...this.enemies,
+      ...this.level.enemies,
     ]);
     requestAnimationFrame(() => {
       this.draw();

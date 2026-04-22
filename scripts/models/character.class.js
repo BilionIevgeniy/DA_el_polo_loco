@@ -22,7 +22,7 @@ export class Character extends MoveableObject {
       if (this.canvas.keyboard.RIGHT) {
         this.moveRight();
       }
-      if (this.canvas.keyboard.LEFT) {
+      if (this.canvas.keyboard.LEFT && this.x - 150 > -720 * 2) {
         this.moveLeft();
       }
       if (this.canvas.keyboard.UP) {
