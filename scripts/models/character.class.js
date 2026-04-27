@@ -1,4 +1,4 @@
-import { characterImagesPaths } from "./constants.js";
+import { characterImagesPaths, characterJumpImagesPaths } from "./constants.js";
 import { MoveableObject } from "./moveable-object.class.js";
 
 export class Character extends MoveableObject {
@@ -9,11 +9,18 @@ export class Character extends MoveableObject {
   speed = 15;
   flipped = false;
 
+  gravity = 2;
+  verticalSpeed = 0;
+  jumpStrength = 28;
+  isJumping = false;
+  groundY = 155;
+
   constructor(canvas) {
     super();
     this.canvas = canvas;
     this.loadImage(characterImagesPaths[0]);
     this.loadImages(characterImagesPaths);
+    this.loadImages(characterJumpImagesPaths);
     this.animate();
   }
 
@@ -37,6 +44,8 @@ export class Character extends MoveableObject {
       if (this.canvas.keyboard.DOWN) {
         this.moveDown();
       }
+
+      this.applyGravity();
     }, 50);
   }
 
@@ -60,7 +69,35 @@ export class Character extends MoveableObject {
     this.canvas.kamera_x += this.speed;
   }
 
-  moveUp() {}
+  moveUp() {
+    if (!this.isJumping) {
+      this.jump();
+    }
+  }
 
-  jump() {}
+  moveDown() {
+    // Placeholder so the animate loop can safely handle the down arrow.
+  }
+
+  jump() {
+    this.isJumping = true;
+    this.loadImages(characterJumpImagesPaths);
+    this.verticalSpeed = -this.jumpStrength;
+  }
+
+  applyGravity() {
+    if (!this.isJumping) {
+      return;
+    }
+
+    this.y += this.verticalSpeed;
+    this.verticalSpeed += this.gravity;
+
+    if (this.y >= this.groundY) {
+      this.loadImages(characterImagesPaths);
+      this.y = this.groundY;
+      this.verticalSpeed = 0;
+      this.isJumping = false;
+    }
+  }
 }
