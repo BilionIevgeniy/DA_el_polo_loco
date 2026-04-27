@@ -34,4 +34,18 @@ export class MoveableObject {
       }
     }, 1000 / 60);
   }
+
+  walkAnimation(images) {
+    let i = this.currentImage % images.length;
+    let path = images[i];
+    this.img = this.images[path];
+    this.currentImage++;
+  }
+
+  animate(images) {
+    this.moveLeft();
+    setInterval(() => {
+      this.walkAnimation(images);
+    }, 200);
+  }
 }

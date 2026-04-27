@@ -2,7 +2,7 @@ import { bossImagesPaths } from "./constants.js";
 import { MoveableObject } from "./moveable-object.class.js";
 
 export class Endboss extends MoveableObject {
-  x = 720;
+  x = 700;
   y = 160;
   height = 280;
   width = 120;
@@ -11,23 +11,8 @@ export class Endboss extends MoveableObject {
 
   constructor() {
     super();
-    this.x = 200 + Math.random() * 500;
     this.loadImages(bossImagesPaths);
-    this.animate();
-  }
-
-  animate() {
-    this.changeImage();
-    setInterval(() => {
-      this.changeImage();
-    }, 200);
-    this.moveLeft();
-  }
-
-  changeImage() {
-    let i = this.currentImage % bossImagesPaths.length;
-    let path = bossImagesPaths[i];
-    this.img = this.images[path];
-    this.currentImage++;
+    this.img = this.images[bossImagesPaths[0]];
+    this.animate(bossImagesPaths);
   }
 }
