@@ -21,8 +21,7 @@ export class Character extends MoveableObject {
     super();
     this.canvas = canvas;
     this.loadImage(characterImagesPaths[0]);
-    this.loadImages(characterImagesPaths);
-    this.loadImages(characterJumpImagesPaths);
+    this.loadImages([...characterImagesPaths, ...characterJumpImagesPaths]);
     this.animate();
   }
 
