@@ -1,6 +1,7 @@
 import { BackgroundObject } from "../models/background.object.class.js";
 import { Chicken } from "../models/chicken.class.js";
 import { Cloud } from "../models/cloud.class.js";
+import { Endboss } from "../models/endboss.class.js";
 import { Level } from "../models/level.class.js";
 const backgroundObjects = [];
 const cloud = [];
@@ -52,4 +53,8 @@ for (let i = 0; i < 3; i++) {
   );
 }
 
-export const level1 = new Level([new Chicken()], cloud, backgroundObjects);
+export const level1 = new Level(
+  [new Chicken(), new Chicken(), new Chicken(), new Endboss()],
+  cloud,
+  backgroundObjects,
+);
