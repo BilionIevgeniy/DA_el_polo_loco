@@ -37,7 +37,7 @@ export class Character extends MoveableObject {
       if (this.canvas.keyboard.DOWN) {
         this.moveDown();
       }
-    }, 60);
+    }, 50);
   }
 
   moveRight() {
@@ -59,6 +59,8 @@ export class Character extends MoveableObject {
     this.currentImage++;
     this.canvas.kamera_x += this.speed;
   }
+
+  moveUp() {}
 
   jump() {}
 }

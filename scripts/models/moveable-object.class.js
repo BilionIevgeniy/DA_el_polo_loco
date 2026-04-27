@@ -1,9 +1,10 @@
 export class MoveableObject {
-  x = 120;
+  x = 100;
   y = 280;
   height = 150;
   width = 100;
   images = {};
+  currentImage = 0;
 
   constructor() {}
 
@@ -12,8 +13,8 @@ export class MoveableObject {
     this.img.src = path;
   }
 
-  loadImages(arr) {
-    arr.forEach((path) => {
+  loadImages(pathes) {
+    pathes.forEach((path) => {
       let img = new Image();
       img.src = path;
       this.images[path] = img;
@@ -29,9 +30,6 @@ export class MoveableObject {
   moveLeft() {
     setInterval(() => {
       this.x -= this.speed;
-      if (this.x < -this.width) {
-        this.x = 720;
-      }
     }, 1000 / 60);
   }
 
@@ -43,7 +41,6 @@ export class MoveableObject {
   }
 
   animate(images) {
-    this.moveLeft();
     setInterval(() => {
       this.walkAnimation(images);
     }, 200);

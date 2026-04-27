@@ -5,6 +5,8 @@ import { Keyboard } from "./keyboard.class.js";
 export class Canvas {
   kamera_x = 0;
   level = level1;
+  keyboard;
+  character;
   constructor() {
     this.character = new Character(this);
     this.keyboard = new Keyboard();

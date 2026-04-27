@@ -5,7 +5,6 @@ export class Chicken extends MoveableObject {
   y = 360;
   height = 60;
   width = 60;
-  currentImage = 0;
   speed = 0.3 + Math.random() * 0.2;
 
   constructor() {
@@ -13,6 +12,11 @@ export class Chicken extends MoveableObject {
     this.x = 200 + Math.random() * 500;
     this.loadImages(chickenImagesPaths);
     this.img = this.images[chickenImagesPaths[0]];
-    this.animate(chickenImagesPaths);
+    this.animate();
+  }
+
+  animate() {
+    super.animate(chickenImagesPaths);
+    this.moveLeft();
   }
 }
