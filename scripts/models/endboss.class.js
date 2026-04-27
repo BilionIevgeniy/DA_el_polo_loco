@@ -10,7 +10,7 @@ export class Endboss extends MoveableObject {
     super();
     this.x = 720 * 2 + 380;
     this.loadImages(bossImagesPaths);
-    this.img = this.images[bossImagesPaths[0]];
+    this.img = this.imagesByPaths[bossImagesPaths[0]];
     this.animate(bossImagesPaths);
   }
 }

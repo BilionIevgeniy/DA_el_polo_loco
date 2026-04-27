@@ -3,7 +3,7 @@ export class MoveableObject {
   y = 280;
   height = 150;
   width = 100;
-  images = {};
+  imagesByPaths = {};
   currentImage = 0;
 
   constructor() {}
@@ -17,7 +17,7 @@ export class MoveableObject {
     pathes.forEach((path) => {
       let img = new Image();
       img.src = path;
-      this.images[path] = img;
+      this.imagesByPaths[path] = img;
     });
   }
 
@@ -33,16 +33,16 @@ export class MoveableObject {
     }, 1000 / 60);
   }
 
-  walkAnimation(images) {
-    let i = this.currentImage % images.length;
-    let path = images[i];
-    this.img = this.images[path];
+  walkAnimation(imagesByPaths) {
+    let i = this.currentImage % imagesByPaths.length;
+    let path = imagesByPaths[i];
+    this.img = this.imagesByPaths[path];
     this.currentImage++;
   }
 
-  animate(images) {
+  animate(imagesByPaths) {
     setInterval(() => {
-      this.walkAnimation(images);
+      this.walkAnimation(imagesByPaths);
     }, 200);
   }
 }

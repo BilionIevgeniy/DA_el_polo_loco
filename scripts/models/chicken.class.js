@@ -11,7 +11,7 @@ export class Chicken extends MoveableObject {
     super();
     this.x = 200 + Math.random() * 500;
     this.loadImages(chickenImagesPaths);
-    this.img = this.images[chickenImagesPaths[0]];
+    this.img = this.imagesByPaths[chickenImagesPaths[0]];
     this.animate();
   }
 

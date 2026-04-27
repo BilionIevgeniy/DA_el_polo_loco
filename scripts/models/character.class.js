@@ -14,6 +14,8 @@ export class Character extends MoveableObject {
   jumpStrength = 28;
   isJumping = false;
   groundY = 155;
+  animationTick = 0;
+  animationSpeed = 4;
 
   constructor(canvas) {
     super();
@@ -31,12 +33,14 @@ export class Character extends MoveableObject {
         this.x < this.canvas.level.level_end_right_x
       ) {
         this.moveRight();
+        !this.isJumping && super.walkAnimation(characterImagesPaths);
       }
       if (
         this.canvas.keyboard.LEFT &&
         this.x - 150 > this.canvas.level.level_end_left_x
       ) {
         this.moveLeft();
+        !this.isJumping && super.walkAnimation(characterImagesPaths);
       }
       if (this.canvas.keyboard.UP) {
         this.moveUp();
@@ -50,22 +54,14 @@ export class Character extends MoveableObject {
   }
 
   moveRight() {
-    let i = this.currentImage % characterImagesPaths.length;
-    let path = characterImagesPaths[i];
-    this.img = this.images[path];
     this.flipped = false;
     this.x += this.speed;
-    this.currentImage++;
     this.canvas.kamera_x -= this.speed;
   }
 
   moveLeft() {
-    let i = this.currentImage % characterImagesPaths.length;
-    let path = characterImagesPaths[i];
-    this.img = this.images[path];
     this.flipped = true;
     this.x -= this.speed;
-    this.currentImage++;
     this.canvas.kamera_x += this.speed;
   }
 
@@ -81,8 +77,10 @@ export class Character extends MoveableObject {
 
   jump() {
     this.isJumping = true;
-    this.loadImages(characterJumpImagesPaths);
+    this.currentImage = 0;
+    this.animationTick = 0;
     this.verticalSpeed = -this.jumpStrength;
+    this.walkAnimation(characterJumpImagesPaths);
   }
 
   applyGravity() {
@@ -90,14 +88,22 @@ export class Character extends MoveableObject {
       return;
     }
 
+    this.animationTick++;
+    // Change the character's image at a slower rate while jumping
+    if (this.animationTick % this.animationSpeed === 0) {
+      this.walkAnimation(characterJumpImagesPaths);
+    }
+
     this.y += this.verticalSpeed;
     this.verticalSpeed += this.gravity;
 
     if (this.y >= this.groundY) {
-      this.loadImages(characterImagesPaths);
       this.y = this.groundY;
       this.verticalSpeed = 0;
       this.isJumping = false;
+      this.currentImage = 0;
+      this.animationTick = 0;
+      this.img = this.imagesByPaths[characterImagesPaths[0]];
     }
   }
 }
