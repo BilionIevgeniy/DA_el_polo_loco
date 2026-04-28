@@ -15,6 +15,7 @@ export class Character extends MoveableObject {
   groundY = 155;
   animationTick = 0;
   animationSpeed = 4;
+  walking_sound = new Audio("assets/sounds/character/characterRun.mp3");
 
   constructor(canvas) {
     super();
@@ -32,22 +33,22 @@ export class Character extends MoveableObject {
         this.x < this.canvas.level.level_end_right_x
       ) {
         this.moveRight();
-        !this.isJumping && super.changeMovementImg(characterImagesPaths);
       }
       if (
         this.canvas.keyboard.LEFT &&
         this.x - 150 > this.canvas.level.level_end_left_x
       ) {
         this.moveLeft();
-        this.flipped = true;
-        this.canvas.kamera_x += this.speed;
-        !this.isJumping && super.changeMovementImg(characterImagesPaths);
       }
       if (this.canvas.keyboard.UP) {
         this.moveUp();
       }
       if (this.canvas.keyboard.DOWN) {
         this.moveDown();
+      }
+
+      if (!this.canvas.keyboard.RIGHT && !this.canvas.keyboard.LEFT) {
+        this.walking_sound.pause();
       }
 
       this.applyGravity();
@@ -76,5 +77,19 @@ export class Character extends MoveableObject {
       this.animationTick = 0;
       this.img = this.imagesByPaths[characterImagesPaths[0]];
     }
+  }
+
+  moveLeft() {
+    super.moveLeft();
+    this.walking_sound.play();
+    this.flipped = true;
+    this.canvas.kamera_x += this.speed;
+    !this.isJumping && super.changeMovementImg(characterImagesPaths);
+  }
+
+  moveRight() {
+    super.moveRight();
+    this.walking_sound.play();
+    !this.isJumping && super.changeMovementImg(characterImagesPaths);
   }
 }
