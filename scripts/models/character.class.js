@@ -12,7 +12,6 @@ export class Character extends MoveableObject {
   gravity = 2;
   verticalSpeed = 0;
   jumpStrength = 28;
-  isJumping = false;
   groundY = 155;
   animationTick = 0;
   animationSpeed = 4;
@@ -23,6 +22,7 @@ export class Character extends MoveableObject {
     this.loadImage(characterImagesPaths[0]);
     this.loadImages([...characterImagesPaths, ...characterJumpImagesPaths]);
     this.animate();
+    this.jumpImagesPaths = characterJumpImagesPaths;
   }
 
   animate() {
@@ -32,14 +32,16 @@ export class Character extends MoveableObject {
         this.x < this.canvas.level.level_end_right_x
       ) {
         this.moveRight();
-        !this.isJumping && super.walkAnimation(characterImagesPaths);
+        !this.isJumping && super.changeMovementImg(characterImagesPaths);
       }
       if (
         this.canvas.keyboard.LEFT &&
         this.x - 150 > this.canvas.level.level_end_left_x
       ) {
         this.moveLeft();
-        !this.isJumping && super.walkAnimation(characterImagesPaths);
+        this.flipped = true;
+        this.canvas.kamera_x += this.speed;
+        !this.isJumping && super.changeMovementImg(characterImagesPaths);
       }
       if (this.canvas.keyboard.UP) {
         this.moveUp();
@@ -52,36 +54,6 @@ export class Character extends MoveableObject {
     }, 50);
   }
 
-  moveRight() {
-    this.flipped = false;
-    this.x += this.speed;
-    this.canvas.kamera_x -= this.speed;
-  }
-
-  moveLeft() {
-    this.flipped = true;
-    this.x -= this.speed;
-    this.canvas.kamera_x += this.speed;
-  }
-
-  moveUp() {
-    if (!this.isJumping) {
-      this.jump();
-    }
-  }
-
-  moveDown() {
-    // Placeholder so the animate loop can safely handle the down arrow.
-  }
-
-  jump() {
-    this.isJumping = true;
-    this.currentImage = 0;
-    this.animationTick = 0;
-    this.verticalSpeed = -this.jumpStrength;
-    this.walkAnimation(characterJumpImagesPaths);
-  }
-
   applyGravity() {
     if (!this.isJumping) {
       return;
@@ -90,7 +62,7 @@ export class Character extends MoveableObject {
     this.animationTick++;
     // Change the character's image at a slower rate while jumping
     if (this.animationTick % this.animationSpeed === 0) {
-      this.walkAnimation(characterJumpImagesPaths);
+      this.changeMovementImg(characterJumpImagesPaths);
     }
 
     this.y += this.verticalSpeed;

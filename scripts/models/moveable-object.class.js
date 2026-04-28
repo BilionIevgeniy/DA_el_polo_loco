@@ -5,6 +5,8 @@ export class MoveableObject {
   width = 100;
   imagesByPaths = {};
   currentImage = 0;
+  isJumping = false;
+  jumpImagesPaths = [];
 
   constructor() {}
 
@@ -27,22 +29,50 @@ export class MoveableObject {
     };
   }
 
-  moveLeft() {
-    setInterval(() => {
-      this.x -= this.speed;
-    }, 1000 / 60);
-  }
-
-  walkAnimation(imagesByPaths) {
+  changeMovementImg(imagesByPaths) {
     let i = this.currentImage % imagesByPaths.length;
     let path = imagesByPaths[i];
     this.img = this.imagesByPaths[path];
     this.currentImage++;
   }
 
-  animate(imagesByPaths) {
+  moveLeft() {
+    this.x -= this.speed;
+  }
+
+  moveRight() {
+    this.flipped = false;
+    this.x += this.speed;
+    this.canvas.kamera_x -= this.speed;
+  }
+
+  moveUp() {
+    if (!this.isJumping) {
+      this.jump();
+    }
+  }
+
+  moveDown() {
+    // Placeholder so the animate loop can safely handle the down arrow.
+  }
+
+  jump() {
+    this.isJumping = true;
+    this.currentImage = 0;
+    this.animationTick = 0;
+    this.verticalSpeed = -this.jumpStrength;
+    this.changeMovementImg(this.jumpImagesPaths);
+  }
+
+  animateMovementLeft() {
     setInterval(() => {
-      this.walkAnimation(imagesByPaths);
+      this.moveLeft();
+    }, 1000 / 60);
+  }
+
+  animateImageMovement(imagesPaths) {
+    setInterval(() => {
+      this.changeMovementImg(imagesPaths);
     }, 200);
   }
 }

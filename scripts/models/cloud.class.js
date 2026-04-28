@@ -9,12 +9,6 @@ export class Cloud extends MoveableObject {
     this.x = x;
     this.width = 500;
     this.height = 300;
-    this.animate();
+    this.animateMovementLeft();
   }
-
-  animate() {
-    this.moveLeft();
-  }
-
-  jump() {}
 }
