@@ -5,16 +5,13 @@ export class Character extends MoveableObject {
   height = 280;
   width = 150;
   y = 155;
-  currentImage = 0;
   speed = 15;
   flipped = false;
-
+  showBoundingBox = true;
   gravity = 2;
   verticalSpeed = 0;
   jumpStrength = 28;
   groundY = 155;
-  animationTick = 0;
-  animationSpeed = 4;
   walking_sound = new Audio("assets/sounds/character/characterRun.mp3");
 
   constructor(canvas) {

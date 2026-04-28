@@ -7,9 +7,16 @@ export class Canvas {
   level = level1;
   keyboard;
   character;
+
   constructor() {
     this.character = new Character(this);
     this.keyboard = new Keyboard();
+    this.renderQueue = [
+      ...this.level.backgroundObjects,
+      ...this.level.cloud,
+      this.character,
+      ...this.level.enemies,
+    ];
   }
 
   init() {
@@ -19,43 +26,13 @@ export class Canvas {
   }
 
   draw() {
-    this.drawImages([
-      ...this.level.backgroundObjects,
-      ...this.level.cloud,
-      this.character,
-      ...this.level.enemies,
-    ]);
-    requestAnimationFrame(() => {
-      this.draw();
-    });
-  }
-
-  drawImages(objArray) {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    this.ctx.translate(this.kamera_x, 0);
-    objArray.forEach((obj) => {
-      if (obj.flipped) {
-        this.flipImage(obj);
-      } else {
-        this.ctx.drawImage(obj.img, obj.x, obj.y, obj.width, obj.height);
-      }
-    });
-    this.ctx.translate(-this.kamera_x, 0);
-  }
-
-  flipImage(obj) {
-    // Save the current context state
-    this.ctx.save();
-    this.ctx.translate(obj.x + obj.width / 2, obj.y + obj.height / 2);
-    this.ctx.scale(-1, 1);
-    this.ctx.drawImage(
-      obj.img,
-      -obj.width / 2,
-      -obj.height / 2,
-      obj.width,
-      obj.height,
-    );
-    // Restore the context to its original state
-    this.ctx.restore();
+    const { ctx, canvas, kamera_x } = this;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.save();
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.translate(kamera_x, 0);
+    this.renderQueue.forEach((obj) => obj.draw(ctx));
+    ctx.restore();
+    requestAnimationFrame(() => this.draw());
   }
 }

@@ -7,6 +7,9 @@ export class MoveableObject {
   currentImage = 0;
   isJumping = false;
   jumpImagesPaths = [];
+  animationTick = 0;
+  animationSpeed = 4;
+  showBoundingBox = false;
 
   constructor() {}
 
@@ -21,12 +24,6 @@ export class MoveableObject {
       img.src = path;
       this.imagesByPaths[path] = img;
     });
-  }
-
-  drawImage() {
-    this.img.onload = () => {
-      this.ctx.drawImage(this.img, this.x, this.y, 80, 150);
-    };
   }
 
   changeMovementImg(imagesByPaths) {
@@ -74,5 +71,39 @@ export class MoveableObject {
     setInterval(() => {
       this.changeMovementImg(imagesPaths);
     }, 200);
+  }
+
+  draw(ctx) {
+    if (this.flipped) {
+      this.flipImage(ctx);
+    } else {
+      ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+    }
+
+    this.showBoundingBox && this.drawBoundingBox(ctx);
+  }
+
+  drawImage() {
+    this.img.onload = () => {
+      this.ctx.drawImage(this.img, this.x, this.y, 80, 150);
+    };
+  }
+
+  drawBoundingBox(ctx) {
+    const { x, y, width, height } = this;
+
+    ctx.strokeStyle = "rgba(255, 0, 0, 0.8)";
+    ctx.lineWidth = 2;
+    ctx.strokeRect(x, y, width, height);
+  }
+
+  flipImage(ctx) {
+    const { x, y, width, height, img } = this;
+
+    ctx.save();
+    ctx.translate(x + width / 2, y + height / 2);
+    ctx.scale(-1, 1);
+    ctx.drawImage(img, -width / 2, -height / 2, width, height);
+    ctx.restore();
   }
 }

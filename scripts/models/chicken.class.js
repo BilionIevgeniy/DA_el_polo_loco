@@ -6,6 +6,7 @@ export class Chicken extends MoveableObject {
   height = 60;
   width = 60;
   speed = 0.3 + Math.random() * 0.2;
+  showBoundingBox = true;
 
   constructor() {
     super();
