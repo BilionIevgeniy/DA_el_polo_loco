@@ -4,7 +4,7 @@ export class Cloud extends MoveableObject {
   speed = 0.15;
   constructor(y, x) {
     super();
-    this.loadImage("assets/img/5_background/layers/4_clouds/1.png");
+    this.loadImageByPath("assets/img/5_background/layers/4_clouds/1.png");
     this.y = y;
     this.x = x;
     this.width = 500;

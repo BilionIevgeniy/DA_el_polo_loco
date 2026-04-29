@@ -1,9 +1,14 @@
-import { characterImagesPaths, characterJumpImagesPaths } from "./constants.js";
+import {
+  characterImagesPaths,
+  characterJumpImagesPaths,
+  characterDeadPaths,
+  characterHurtPath,
+} from "./constants.js";
 import { MoveableObject } from "./moveable-object.class.js";
 
 export class Character extends MoveableObject {
   height = 280;
-  width = 150;
+  width = 100;
   y = 155;
   speed = 15;
   flipped = false;
@@ -12,43 +17,41 @@ export class Character extends MoveableObject {
   verticalSpeed = 0;
   jumpStrength = 28;
   groundY = 155;
+  isEnd = false;
+  hitbox = {
+    offsetX: 0,
+    offsetY: 110,
+    width: 55,
+    height: 155,
+  };
+
+  damage_sound = new Audio("assets/sounds/character/characterDamage.mp3");
   walking_sound = new Audio("assets/sounds/character/characterRun.mp3");
+  jumping_sound = new Audio("assets/sounds/character/characterJump.wav");
+  dead_sound = new Audio("assets/sounds/character/characterDead.wav");
+  snoring_sound = new Audio("assets/sounds/character/characterSnoring.mp3");
 
   constructor(canvas) {
     super();
     this.canvas = canvas;
-    this.loadImage(characterImagesPaths[0]);
-    this.loadImages([...characterImagesPaths, ...characterJumpImagesPaths]);
+    this.loadImageByPath(characterImagesPaths[0]);
+    this.loadImagesByPath([
+      ...characterImagesPaths,
+      ...characterJumpImagesPaths,
+      ...characterDeadPaths,
+      ...characterHurtPath,
+    ]);
     this.animate();
     this.jumpImagesPaths = characterJumpImagesPaths;
   }
 
   animate() {
     setInterval(() => {
-      if (
-        this.canvas.keyboard.RIGHT &&
-        this.x < this.canvas.level.level_end_right_x
-      ) {
-        this.moveRight();
-      }
-      if (
-        this.canvas.keyboard.LEFT &&
-        this.x - 150 > this.canvas.level.level_end_left_x
-      ) {
-        this.moveLeft();
-      }
-      if (this.canvas.keyboard.UP) {
-        this.moveUp();
-      }
-      if (this.canvas.keyboard.DOWN) {
-        this.moveDown();
-      }
-
-      if (!this.canvas.keyboard.RIGHT && !this.canvas.keyboard.LEFT) {
-        this.walking_sound.pause();
-      }
-
+      this.checkCharacterState();
+      this.checkKeyboardState();
+      this.checkCollision();
       this.applyGravity();
+      this.hitbox.offsetX = this.flipped ? 30 : 15;
     }, 50);
   }
 
@@ -66,6 +69,7 @@ export class Character extends MoveableObject {
     this.y += this.verticalSpeed;
     this.verticalSpeed += this.gravity;
 
+    // Check if the character has reached the ground
     if (this.y >= this.groundY) {
       this.y = this.groundY;
       this.verticalSpeed = 0;
@@ -76,17 +80,62 @@ export class Character extends MoveableObject {
     }
   }
 
+  checkCharacterState() {
+    if (this.isDead()) {
+      this.changeMovementImg(characterDeadPaths);
+      return;
+    }
+
+    if (this.isHurt()) {
+      this.changeMovementImg(characterHurtPath);
+    }
+  }
+
+  checkKeyboardState() {
+    if (
+      this.canvas.keyboard.RIGHT &&
+      this.x < this.canvas.level.level_end_right_x
+    ) {
+      this.moveRight();
+    }
+    if (
+      this.canvas.keyboard.LEFT &&
+      this.x - 150 > this.canvas.level.level_end_left_x
+    ) {
+      this.moveLeft();
+    }
+    if (this.canvas.keyboard.UP) {
+      this.moveUp();
+    }
+    if (this.canvas.keyboard.DOWN) {
+      this.moveDown();
+    }
+    if (!this.canvas.keyboard.RIGHT && !this.canvas.keyboard.LEFT) {
+      this.walking_sound.pause();
+    }
+  }
+
   moveLeft() {
     super.moveLeft();
     this.walking_sound.play();
     this.flipped = true;
     this.canvas.kamera_x += this.speed;
-    !this.isJumping && super.changeMovementImg(characterImagesPaths);
+    !this.isJumping && this.changeMovementImg(characterImagesPaths);
   }
 
   moveRight() {
     super.moveRight();
     this.walking_sound.play();
-    !this.isJumping && super.changeMovementImg(characterImagesPaths);
+    !this.isJumping && this.changeMovementImg(characterImagesPaths);
+  }
+
+  checkCollision() {
+    const enemy = this.canvas.level.enemies.find((enemy) => {
+      return this.isColliding(this, enemy);
+    });
+    if (enemy) {
+      this.hit();
+      // this.damage_sound.play();
+    }
   }
 }

@@ -7,6 +7,22 @@ export const characterImagesPaths = [
   "assets/img/2_character_pepe/2_walk/W-26.png",
 ];
 
+export const characterDeadPaths = [
+  "assets/img/2_character_pepe/5_dead/D-51.png",
+  "assets/img/2_character_pepe/5_dead/D-52.png",
+  "assets/img/2_character_pepe/5_dead/D-53.png",
+  "assets/img/2_character_pepe/5_dead/D-54.png",
+  "assets/img/2_character_pepe/5_dead/D-55.png",
+  "assets/img/2_character_pepe/5_dead/D-56.png",
+  "assets/img/2_character_pepe/5_dead/D-57.png",
+];
+
+export const characterHurtPath = [
+  "assets/img/2_character_pepe/4_hurt/H-41.png",
+  "assets/img/2_character_pepe/4_hurt/H-42.png",
+  "assets/img/2_character_pepe/4_hurt/H-43.png",
+];
+
 export const characterJumpImagesPaths = [
   "assets/img/2_character_pepe/3_jump/J-31.png",
   "assets/img/2_character_pepe/3_jump/J-32.png",

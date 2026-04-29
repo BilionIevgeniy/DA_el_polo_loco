@@ -10,15 +10,25 @@ export class MoveableObject {
   animationTick = 0;
   animationSpeed = 4;
   showBoundingBox = false;
+  energy = 100;
+  hitbox = {
+    offsetX: 0,
+    offsetY: 0,
+    width: 0,
+    height: 0,
+  };
+  damage_sound;
+  dead_sound;
+  lastHitTime = 0;
 
   constructor() {}
 
-  loadImage(path) {
+  loadImageByPath(path) {
     this.img = new Image();
     this.img.src = path;
   }
 
-  loadImages(pathes) {
+  loadImagesByPath(pathes) {
     pathes.forEach((path) => {
       let img = new Image();
       img.src = path;
@@ -83,18 +93,13 @@ export class MoveableObject {
     this.showBoundingBox && this.drawBoundingBox(ctx);
   }
 
-  drawImage() {
-    this.img.onload = () => {
-      this.ctx.drawImage(this.img, this.x, this.y, 80, 150);
-    };
-  }
-
   drawBoundingBox(ctx) {
-    const { x, y, width, height } = this;
+    const { offsetX, offsetY, width, height } = this.hitbox;
+    const { x, y } = this;
 
     ctx.strokeStyle = "rgba(255, 0, 0, 0.8)";
     ctx.lineWidth = 2;
-    ctx.strokeRect(x, y, width, height);
+    ctx.strokeRect(x + offsetX, y + offsetY, width, height);
   }
 
   flipImage(ctx) {
@@ -105,5 +110,47 @@ export class MoveableObject {
     ctx.scale(-1, 1);
     ctx.drawImage(img, -width / 2, -height / 2, width, height);
     ctx.restore();
+  }
+
+  isColliding(obj1, obj2) {
+    const b1 = {
+      left: obj1.x + obj1.hitbox.offsetX,
+      right: obj1.x + obj1.hitbox.offsetX + obj1.hitbox.width,
+      top: obj1.y + obj1.hitbox.offsetY,
+      bottom: obj1.y + obj1.hitbox.offsetY + obj1.hitbox.height,
+    };
+
+    const b2 = {
+      left: obj2.x + obj2.hitbox.offsetX,
+      right: obj2.x + obj2.hitbox.offsetX + obj2.hitbox.width,
+      top: obj2.y + obj2.hitbox.offsetY,
+      bottom: obj2.y + obj2.hitbox.offsetY + obj2.hitbox.height,
+    };
+
+    return (
+      b1.bottom > b2.top &&
+      b1.top < b2.bottom &&
+      b1.right > b2.left &&
+      b1.left < b2.right
+    );
+  }
+
+  hit() {
+    if (this.energy <= 0) {
+      this.energy = 0;
+      return;
+    }
+    this.energy -= 2;
+    this.lastHitTime = Date.now();
+  }
+
+  isDead() {
+    return this.energy <= 0;
+  }
+
+  isHurt() {
+    let timePassed = Date.now() - this.lastHitTime;
+    timePassed = timePassed / 1000;
+    return timePassed < 0.1;
   }
 }
