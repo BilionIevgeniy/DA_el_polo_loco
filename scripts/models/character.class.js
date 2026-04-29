@@ -2,7 +2,7 @@ import {
   characterImagesPaths,
   characterJumpImagesPaths,
   characterDeadPaths,
-  characterHurtPath,
+  characterHurtPaths,
 } from "./constants.js";
 import { MoveableObject } from "./moveable-object.class.js";
 
@@ -10,13 +10,14 @@ export class Character extends MoveableObject {
   height = 280;
   width = 100;
   y = 155;
+  groundY = 155;
   speed = 15;
   flipped = false;
   showBoundingBox = true;
   gravity = 2;
   verticalSpeed = 0;
   jumpStrength = 28;
-  groundY = 155;
+
   isEnd = false;
   hitbox = {
     offsetX: 0,
@@ -39,7 +40,7 @@ export class Character extends MoveableObject {
       ...characterImagesPaths,
       ...characterJumpImagesPaths,
       ...characterDeadPaths,
-      ...characterHurtPath,
+      ...characterHurtPaths,
     ]);
     this.animate();
     this.jumpImagesPaths = characterJumpImagesPaths;
@@ -47,7 +48,16 @@ export class Character extends MoveableObject {
 
   animate() {
     setInterval(() => {
-      this.checkCharacterState();
+      if (this.isDead()) {
+        this.changeMovementImg(characterDeadPaths);
+        return;
+      }
+
+      if (this.isHurt()) {
+        this.changeMovementImg(characterHurtPaths);
+      } else {
+        this.changeMovementImg([characterImagesPaths[0]]);
+      }
       this.checkKeyboardState();
       this.checkCollision();
       this.applyGravity();
@@ -80,17 +90,6 @@ export class Character extends MoveableObject {
     }
   }
 
-  checkCharacterState() {
-    if (this.isDead()) {
-      this.changeMovementImg(characterDeadPaths);
-      return;
-    }
-
-    if (this.isHurt()) {
-      this.changeMovementImg(characterHurtPath);
-    }
-  }
-
   checkKeyboardState() {
     if (
       this.canvas.keyboard.RIGHT &&
@@ -120,13 +119,17 @@ export class Character extends MoveableObject {
     this.walking_sound.play();
     this.flipped = true;
     this.canvas.kamera_x += this.speed;
-    !this.isJumping && this.changeMovementImg(characterImagesPaths);
+    !this.isJumping &&
+      !this.isHurt() &&
+      this.changeMovementImg(characterImagesPaths);
   }
 
   moveRight() {
     super.moveRight();
     this.walking_sound.play();
-    !this.isJumping && this.changeMovementImg(characterImagesPaths);
+    !this.isJumping &&
+      !this.isHurt() &&
+      this.changeMovementImg(characterImagesPaths);
   }
 
   checkCollision() {
