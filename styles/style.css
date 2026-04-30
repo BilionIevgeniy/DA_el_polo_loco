@@ -1,19 +1,297 @@
-@import url(./reset.css);
-.container {
+@import url("./reset.css");
+@import url("https://fonts.googleapis.com/css2?family=Boogaloo&display=swap");
+
+:root {
+  --font-game: "Boogaloo", cursive;
+  --color-primary: #f5a623;
+  --color-dark: #1a0a00;
+  --color-overlay: rgba(0, 0, 0, 0.75);
+  --canvas-w: 720px;
+  --canvas-h: 480px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-game);
+  background: var(--color-dark) url("../assets/img/5_background/layers/air.png")
+    center/cover no-repeat;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
-  width: 90%;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* ── Screens ── */
+.screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-overlay);
+  color: #fff;
+  z-index: 10;
+  text-align: center;
   padding: 2rem;
 }
-h1 {
-  color: #333;
+
+.screen.hidden {
+  display: none;
+}
+
+.screen h1 {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  color: var(--color-primary);
+  text-shadow: 2px 2px 0 var(--color-dark);
   margin-bottom: 1rem;
 }
 
+.screen p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  max-width: 420px;
+  line-height: 1.5;
+}
+
+/* ── Buttons ── */
+.btn {
+  font-family: var(--font-game);
+  font-size: 1.3rem;
+  padding: 0.6em 1.8em;
+  border: 3px solid var(--color-primary);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--color-primary);
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    color 0.15s;
+  margin: 0.4rem;
+}
+
+.btn:hover {
+  background: var(--color-primary);
+  color: var(--color-dark);
+}
+.btn:active {
+  transform: scale(0.96);
+}
+
+.btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+/* ── Game canvas wrapper ── */
+#game-wrapper {
+  position: relative;
+  width: var(--canvas-w);
+  height: var(--canvas-h);
+}
+
+#game-wrapper.hidden {
+  display: none;
+}
+
 canvas {
-  background-color: black;
-  border: 1px solid #000;
+  display: block;
+  width: var(--canvas-w);
+  height: var(--canvas-h);
+  background: #000;
+}
+
+/* ── Mute button ── */
+#mute-btn {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  font-size: 1.6rem;
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  cursor: pointer;
+  z-index: 20;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#mute-btn.hidden {
+  display: none;
+}
+
+/* ── How-to-play dialog ── */
+#how-to-play {
+  position: fixed;
+  inset: 0;
+  background: var(--color-overlay);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 30;
+}
+
+#how-to-play.hidden {
+  display: none;
+}
+
+.dialog {
+  background: #1a0a00;
+  border: 3px solid var(--color-primary);
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 460px;
+  width: 90%;
+  color: #fff;
+  position: relative;
+}
+
+.dialog h2 {
+  color: var(--color-primary);
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.dialog ul {
+  list-style: none;
+  padding: 0;
+  font-size: 1.1rem;
+  line-height: 2;
+}
+
+.dialog ul li::before {
+  content: "🐔 ";
+}
+
+.dialog-close {
+  position: absolute;
+  top: 0.8rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  font-size: 1.8rem;
+  cursor: pointer;
+  line-height: 1;
+}
+
+/* ── End screen ── */
+#end-title {
+  font-size: clamp(3rem, 7vw, 5rem);
+}
+
+/* ── Mobile controls ── */
+#mobile-controls {
+  display: none;
+  position: fixed;
+  bottom: 1rem;
+  width: 100%;
+  padding: 0 1rem;
+  justify-content: space-between;
+  align-items: flex-end;
+  z-index: 20;
+  pointer-events: none;
+}
+
+#mobile-controls.hidden {
+  display: none !important;
+}
+
+.mobile-left,
+.mobile-right {
+  display: flex;
+  gap: 0.5rem;
+  pointer-events: all;
+}
+
+.touch-btn {
+  font-family: var(--font-game);
+  font-size: 1.6rem;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 3px solid var(--color-primary);
+  background: rgba(0, 0, 0, 0.55);
+  color: var(--color-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+}
+
+/* ── Impressum link ── */
+.impressum-link {
+  position: fixed;
+  bottom: 0.6rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.85rem;
+  text-decoration: none;
+}
+
+.impressum-link:hover {
+  color: var(--color-primary);
+}
+
+/* ── Responsiveness ── */
+@media (max-width: 740px) {
+  :root {
+    --canvas-w: 100vw;
+    --canvas-h: 56.25vw;
+  }
+
+  #mobile-controls {
+    display: flex;
+  }
+}
+
+/* ── Portrait lock ── */
+@media (max-width: 740px) and (orientation: portrait) {
+  body > *:not(#landscape-msg) {
+    display: none !important;
+  }
+  #landscape-msg {
+    display: flex !important;
+    position: fixed;
+    inset: 0;
+    background: var(--color-dark);
+    color: var(--color-primary);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    text-align: center;
+    padding: 2rem;
+    z-index: 9999;
+  }
+  #landscape-msg span {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+}
+
+#landscape-msg {
+  display: none;
+}
+
+/* ── No scrollbar ── */
+html,
+body {
+  overflow: hidden;
 }

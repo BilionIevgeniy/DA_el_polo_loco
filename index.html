@@ -1,17 +1,77 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>El Polo Loco</title>
-  <script type="module" src="scripts/script.js"></script>
-  <link rel="stylesheet" href="styles/style.css">
-  <link rel="shortcut icon" href="assets/img/9_intro_outro_screens/start/startscreen_1.png" type="image/x-icon">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>El Pollo Loco</title>
+  <link rel="icon" href="assets/img/2_character_pepe/Pepe.png" type="image/png" />
+  <link rel="stylesheet" href="styles/style.css" />
 </head>
 <body>
-  <div class="container">
-    <h1>El Polo Loco</h1>
+
+  <!-- Portrait-mode message (mobile only) -->
+  <div id="landscape-msg">
+    <span>🔄</span>
+    Turn your device to play
+  </div>
+
+  <!-- ── Start screen ── -->
+  <div id="start-screen" class="screen">
+    <h1>El Pollo Loco</h1>
+    <p>Help Pepe collect coins and bottles — and defeat the giant chicken boss!</p>
+    <div class="btn-group">
+      <button id="start-btn" class="btn">▶ Start</button>
+      <button id="how-to-play-btn" class="btn">? How to play</button>
+    </div>
+    <a href="impressum.html" class="impressum-link">Impressum</a>
+  </div>
+
+  <!-- ── How-to-play dialog ── -->
+  <div id="how-to-play" class="hidden">
+    <div class="dialog">
+      <button id="how-to-play-close" class="dialog-close" aria-label="Close">✕</button>
+      <h2>How to play</h2>
+      <ul>
+        <li><strong>← →</strong> Move left / right</li>
+        <li><strong>↑ or Space</strong> Jump</li>
+        <li><strong>D</strong> Throw bottle</li>
+        <li>Jump on chickens to stomp them</li>
+        <li>Throw bottles to hurt the boss</li>
+        <li>Collect coins &amp; bottles to fill your bars</li>
+        <li>Defeat the giant boss to win!</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ── Game canvas ── -->
+  <div id="game-wrapper" class="hidden">
     <canvas id="myCanvas" width="720" height="480"></canvas>
   </div>
+
+  <!-- ── End screen ── -->
+  <div id="end-screen" class="screen hidden">
+    <h1 id="end-title">Game Over!</h1>
+    <div class="btn-group">
+      <button id="restart-btn" class="btn">↺ Restart</button>
+      <button id="home-btn" class="btn">⌂ Home</button>
+    </div>
+  </div>
+
+  <!-- ── Mute button ── -->
+  <button id="mute-btn" class="hidden" aria-label="Toggle sound">🔊</button>
+
+  <!-- ── Mobile touch controls ── -->
+  <div id="mobile-controls" class="hidden">
+    <div class="mobile-left">
+      <button id="btn-left" class="touch-btn">←</button>
+      <button id="btn-right" class="touch-btn">→</button>
+    </div>
+    <div class="mobile-right">
+      <button id="btn-jump" class="touch-btn">↑</button>
+      <button id="btn-throw" class="touch-btn">🍶</button>
+    </div>
+  </div>
+
+  <script type="module" src="scripts/script.js"></script>
 </body>
 </html>

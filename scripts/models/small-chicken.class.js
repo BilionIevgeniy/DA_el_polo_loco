@@ -1,31 +1,31 @@
 import { MoveableObject } from "./moveable-object.class.js";
-import { CHICKEN_WALK, CHICKEN_DEAD } from "./constants.js";
+import { SMALL_CHICKEN_WALK, SMALL_CHICKEN_DEAD } from "./constants.js";
 
 /**
- * A normal-sized chicken enemy that walks left and can be killed by a jump or bottle.
+ * A smaller, faster chicken enemy — the second enemy type.
  */
-export class Chicken extends MoveableObject {
-  y = 360;
-  height = 60;
-  width = 60;
+export class SmallChicken extends MoveableObject {
+  y = 390;
+  height = 40;
+  width = 40;
   isDying = false;
   deathAnimDone = false;
 
-  hitbox = { offsetX: 5, offsetY: 5, width: 50, height: 50 };
+  hitbox = { offsetX: 3, offsetY: 3, width: 34, height: 34 };
 
   constructor() {
     super();
-    this.x = 200 + Math.random() * 1500;
-    this.speed = 0.3 + Math.random() * 0.3;
-    this.loadImagesByPath([...CHICKEN_WALK, ...CHICKEN_DEAD]);
-    this.img = this.imagesByPaths[CHICKEN_WALK[0]];
+    this.x = 400 + Math.random() * 1500;
+    this.speed = 0.5 + Math.random() * 0.4;
+    this.loadImagesByPath([...SMALL_CHICKEN_WALK, ...SMALL_CHICKEN_DEAD]);
+    this.img = this.imagesByPaths[SMALL_CHICKEN_WALK[0]];
     this.startAnimation();
   }
 
   /** Starts the combined movement + animation loop. */
   startAnimation() {
     this.animInterval = setInterval(() => this.updateFrame(), 1000 / 60);
-    this.imgInterval  = setInterval(() => this.updateImage(), 150);
+    this.imgInterval  = setInterval(() => this.updateImage(), 120);
   }
 
   /** Moves left each frame while alive. */
@@ -36,13 +36,13 @@ export class Chicken extends MoveableObject {
   /** Switches to the correct animation frame. */
   updateImage() {
     if (this.isDying) {
-      this.changeMovementImg(CHICKEN_DEAD);
+      this.changeMovementImg(SMALL_CHICKEN_DEAD);
     } else {
-      this.changeMovementImg(CHICKEN_WALK);
+      this.changeMovementImg(SMALL_CHICKEN_WALK);
     }
   }
 
-  /** Triggers the death sequence and cleans up movement after a delay. */
+  /** Triggers the death sequence. */
   die() {
     if (this.isDying) return;
     this.isDying = true;
