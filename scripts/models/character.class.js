@@ -58,12 +58,12 @@ export class Character extends MoveableObject {
 
   /** Starts the main character update loop at 60 fps. */
   startAnimation() {
-    this.animInterval = setInterval(() => this.update(), 1000 / 60);
+    this.animInterval = setInterval(() => this.updatePosition(), 1000 / 60);
     this.imgInterval = setInterval(() => this.updateImage(), 80);
   }
 
   /** Updates physics, input, and camera every frame. */
-  update() {
+  updatePosition() {
     this.applyGravity(CHARACTER_JUMP);
     this.handleKeyboard();
   }

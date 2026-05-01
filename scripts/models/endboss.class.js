@@ -51,7 +51,7 @@ export class Endboss extends MoveableObject {
    * Starts the boss AnimatioInterval and animation loop.
    */
   startAnimation() {
-    this.animInterval = setInterval(() => this.updateAnimation(), 1000 / 60);
+    this.animInterval = setInterval(() => this.updateMovement(), 1000 / 60);
     this.imgInterval = setInterval(() => this.updateImage(), 150);
   }
 
@@ -59,7 +59,7 @@ export class Endboss extends MoveableObject {
    * Moves toward the player and updates AnimatioInterval state.
    * @param {number} playerX - Character's current x position
    */
-  updateAnimation(playerX = 0) {
+  updateMovement(playerX = 0) {
     if (this.state === STATE.DEAD) return;
     if (this.state === STATE.HURT) return;
     if (this.state === STATE.ATTACK || this.state === STATE.ALERT) {
