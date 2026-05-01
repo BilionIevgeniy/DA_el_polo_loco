@@ -4,9 +4,9 @@
  */
 export class SoundManager {
   static MUTE_KEY = "elPolloLoco_muted";
+  sounds = {};
 
   constructor() {
-    this.sounds = {};
     this.muted = localStorage.getItem(SoundManager.MUTE_KEY) === "true";
   }
 
@@ -17,7 +17,7 @@ export class SoundManager {
    * @param {boolean} [loop=false] - Whether the sound loops
    * @returns {HTMLAudioElement}
    */
-  register(key, src, loop = false) {
+  registerSound(key, src, loop = false) {
     const audio = new Audio(src);
     audio.loop = loop;
     audio.muted = this.muted;
@@ -32,8 +32,10 @@ export class SoundManager {
   play(key) {
     const sound = this.sounds[key];
     if (!sound || this.muted) return;
-    sound.currentTime = 0;
-    sound.play().catch(() => {});
+    if (key !== "walk") sound.currentTime = 0;
+    sound.play().catch(() => {
+      console.log("Error in sound");
+    });
   }
 
   /**

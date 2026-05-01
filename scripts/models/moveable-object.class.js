@@ -5,28 +5,18 @@ import { DrawableObject } from "./drawable-object.class.js";
  * Handles drawing, image loading, animation, physics, and collision.
  */
 export class MoveableObject extends DrawableObject {
-  x = 100;
-  y = 280;
-  height = 150;
-  width = 100;
-  imagesByPaths = {};
   currentImage = 0;
   isJumping = false;
-  jumpImagesPaths = [];
-  animationTick = 0;
-  animationSpeed = 4;
-  showBoundingBox = false;
+  animationTick = 0; // animationTick - the number of frames since the last animation change
   energy = 100;
-  flipped = false;
   speed = 1;
   verticalSpeed = 0;
+  animationSpeed = 2;
   gravity = 2;
   jumpStrength = 28;
   groundY = 0;
   lastHitTime = 0;
   isDying = false;
-
-  hitbox = { offsetX: 0, offsetY: 0, width: 0, height: 0 };
 
   constructor() {
     super();
@@ -106,53 +96,6 @@ export class MoveableObject extends DrawableObject {
    */
   animateImageMovement(paths, intervalMs = 200) {
     return setInterval(() => this.changeMovementImg(paths), intervalMs);
-  }
-
-  /**
-   * Draws the object on the canvas context.
-   * @param {CanvasRenderingContext2D} ctx
-   */
-  draw(ctx) {
-    if (!this.img) return;
-    this.flipped ? this.drawFlipped(ctx) : this.drawNormal(ctx);
-    if (this.showBoundingBox) this.drawBoundingBox(ctx);
-  }
-
-  /**
-   * Draws the image normally.
-   * @param {CanvasRenderingContext2D} ctx
-   */
-  drawNormal(ctx) {
-    ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-  }
-
-  /**
-   * Draws the image mirrored horizontally.
-   * @param {CanvasRenderingContext2D} ctx
-   */
-  drawFlipped(ctx) {
-    ctx.save();
-    ctx.translate(this.x + this.width / 2, this.y + this.height / 2);
-    ctx.scale(-1, 1);
-    ctx.drawImage(
-      this.img,
-      -this.width / 2,
-      -this.height / 2,
-      this.width,
-      this.height,
-    );
-    ctx.restore();
-  }
-
-  /**
-   * Draws the hitbox rectangle for debugging.
-   * @param {CanvasRenderingContext2D} ctx
-   */
-  drawBoundingBox(ctx) {
-    const { offsetX, offsetY, width, height } = this.hitbox;
-    ctx.strokeStyle = "rgba(255,0,0,0.8)";
-    ctx.lineWidth = 2;
-    ctx.strokeRect(this.x + offsetX, this.y + offsetY, width, height);
   }
 
   /**
