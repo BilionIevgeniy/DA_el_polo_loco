@@ -1,9 +1,9 @@
-import { MoveableObject } from "./moveable-object.class.js";
+import { DrawableObject } from "./drawable-object.class.js";
 
 /**
  * A fixed HUD status bar that displays a percentage as one of six images.
  */
-export class StatusBar extends MoveableObject {
+export class StatusBar extends DrawableObject {
   width = 200;
   height = 60;
   percentage = 100;
@@ -38,19 +38,10 @@ export class StatusBar extends MoveableObject {
    */
   resolveImageIndex() {
     if (this.percentage === 100) return 5;
-    if (this.percentage >= 80)  return 4;
-    if (this.percentage >= 60)  return 3;
-    if (this.percentage >= 40)  return 2;
-    if (this.percentage >= 20)  return 1;
+    if (this.percentage >= 80) return 4;
+    if (this.percentage >= 60) return 3;
+    if (this.percentage >= 40) return 2;
+    if (this.percentage >= 20) return 1;
     return 0;
-  }
-
-  /**
-   * Draws the status bar directly without camera offset.
-   * @param {CanvasRenderingContext2D} ctx
-   */
-  draw(ctx) {
-    if (!this.img) return;
-    ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
   }
 }

@@ -1,7 +1,7 @@
 import { Character } from "./heroes/character.class.js";
 import { Keyboard } from "./keyboard.class.js";
 import { SoundManager } from "./sound-manager.class.js";
-// import { StatusBar }        from "./status-bar.class.js";
+import { StatusBar } from "./status-bar.class.js";
 import { ThrowableObject } from "./heroes/throwable-object.class.js";
 import {
   STATUS_BAR_HEALTH,
@@ -29,10 +29,10 @@ export class Canvas {
     this.keyboard = new Keyboard();
     this.character = new Character(this);
 
-    // this.healthBar  = new StatusBar(STATUS_BAR_HEALTH, 10,  10);
-    // this.coinBar    = new StatusBar(STATUS_BAR_COIN,   10,  40);
-    // this.bottleBar  = new StatusBar(STATUS_BAR_BOTTLE, 10,  70);
-    // this.bossBar    = new StatusBar(STATUS_BAR_BOSS,   500, 10, 100);
+    this.healthBar = new StatusBar(STATUS_BAR_HEALTH, 10, 10);
+    this.coinBar = new StatusBar(STATUS_BAR_COIN, 10, 40);
+    this.bottleBar = new StatusBar(STATUS_BAR_BOTTLE, 10, 70);
+    this.bossBar = new StatusBar(STATUS_BAR_BOSS, 500, 10, 100);
   }
 
   /**
@@ -109,7 +109,7 @@ export class Canvas {
     // this.checkCollisionsWithCollectibles();
     // this.checkIfObjectThrownableHits();
     // this.removeDeadObjects();
-    // this.updateStatusBar();
+    this.updateStatusBar();
     // this.checkEndConditions();
   }
 
@@ -129,7 +129,7 @@ export class Canvas {
     this.character.draw(ctx);
 
     ctx.restore();
-    // this.drawStatusBar(ctx);
+    this.drawStatusBar(ctx);
   }
 
   /** Draws the fixed HUD (status bars) directly on-screen. */
