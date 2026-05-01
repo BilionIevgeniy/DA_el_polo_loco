@@ -1,10 +1,10 @@
-import { BackgroundObject } from "../models/background-object.class.js";
-import { Chicken } from "../models/chicken.class.js";
-// import { SmallChicken } from "../models/small-chicken.class.js";
-import { Cloud } from "../models/cloud.class.js";
+import { BackgroundObject } from "../models/heroes/background-object.class.js";
+import { Chicken } from "../models/heroes/chicken.class.js";
+import { SmallChicken } from "../models/heroes/small-chicken.class.js";
+import { Cloud } from "../models/heroes/cloud.class.js";
 // import { Coin } from "../models/coin.class.js";
 // import { Bottle } from "../models/bottle.class.js";
-import { Endboss } from "../models/endboss.class.js";
+import { Endboss } from "../models/heroes/endboss.class.js";
 import { Level } from "../models/level.class.js";
 
 /** @returns {BackgroundObject[]} Complete parallax background for the level */
@@ -81,8 +81,13 @@ export function createLevel1() {
       new Chicken(),
       new Chicken(),
       new Chicken(),
-      // new SmallChicken(),
-      // new SmallChicken(),
+      new Chicken(),
+      new Chicken(),
+      new Chicken(),
+      new SmallChicken(),
+      new SmallChicken(),
+      new SmallChicken(),
+      new SmallChicken(),
       new Endboss(),
     ],
     buildClouds(),

@@ -1,5 +1,5 @@
-import { MoveableObject } from "./moveable-object.class.js";
-import { CHICKEN_WALK, CHICKEN_DEAD } from "./constants.js";
+import { MoveableObject } from "../moveable-object.class.js";
+import { CHICKEN_WALK, CHICKEN_DEAD } from "../constants.js";
 
 /**
  * A normal-sized chicken enemy that walks left and can be killed by a jump or bottle.
@@ -25,7 +25,7 @@ export class Chicken extends MoveableObject {
   /** Starts the combined movement + animation loop. */
   startAnimation() {
     this.animInterval = setInterval(() => this.updateFrame(), 1000 / 60);
-    this.imgInterval  = setInterval(() => this.updateImage(), 150);
+    this.imgInterval = setInterval(() => this.updateImage(), 150);
   }
 
   /** Moves left each frame while alive. */

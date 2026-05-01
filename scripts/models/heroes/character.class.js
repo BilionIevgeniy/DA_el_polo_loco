@@ -1,4 +1,4 @@
-import { MoveableObject } from "./moveable-object.class.js";
+import { MoveableObject } from "../moveable-object.class.js";
 import {
   CHARACTER_WALK,
   CHARACTER_IDLE,
@@ -6,9 +6,8 @@ import {
   CHARACTER_JUMP,
   CHARACTER_HURT,
   CHARACTER_DEAD,
-} from "./constants.js";
+} from "../constants.js";
 
-const IDLE_TIMEOUT_MS = 5000;
 const SLEEP_TIMEOUT_MS = 15000;
 
 /**
@@ -22,7 +21,6 @@ export class Character extends MoveableObject {
   speed = 15;
   flipped = false;
   gravity = 2;
-  verticalSpeed = 0;
   jumpStrength = 28;
   energy = 100;
   coins = 0;

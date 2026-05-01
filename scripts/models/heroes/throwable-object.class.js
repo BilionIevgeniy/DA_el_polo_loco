@@ -1,5 +1,5 @@
-import { MoveableObject } from "./moveable-object.class.js";
-import { BOTTLE_ROTATION, BOTTLE_SPLASH } from "./constants.js";
+import { MoveableObject } from "../moveable-object.class.js";
+import { BOTTLE_ROTATION, BOTTLE_SPLASH } from "../constants.js";
 
 /**
  * A bottle thrown by the character that travels until it hits something or the ground.

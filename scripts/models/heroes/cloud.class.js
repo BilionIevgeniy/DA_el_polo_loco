@@ -1,4 +1,4 @@
-import { MoveableObject } from "./moveable-object.class.js";
+import { MoveableObject } from "../moveable-object.class.js";
 
 /**
  * A slowly drifting cloud in the background.

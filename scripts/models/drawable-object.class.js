@@ -1,4 +1,8 @@
 export class DrawableObject {
+  x = 100;
+  y = 280;
+  height = 150;
+  width = 100;
   imagesByPaths = {};
   showBoundingBox = false;
   flipped = false;
@@ -9,10 +13,6 @@ export class DrawableObject {
     width: 0,
     height: 0,
   };
-  x = 100;
-  y = 280;
-  height = 150;
-  width = 100;
 
   /**
    * Loads a single image and assigns it as the current image.

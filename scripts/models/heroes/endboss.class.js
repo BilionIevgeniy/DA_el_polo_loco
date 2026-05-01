@@ -1,11 +1,11 @@
-import { MoveableObject } from "./moveable-object.class.js";
+import { MoveableObject } from "../moveable-object.class.js";
 import {
   BOSS_WALK,
   BOSS_ALERT,
   BOSS_ATTACK,
   BOSS_HURT,
   BOSS_DEAD,
-} from "./constants.js";
+} from "../constants.js";
 
 /** Endboss states. */
 const STATE = {
@@ -33,7 +33,7 @@ export class Endboss extends MoveableObject {
 
   constructor() {
     super();
-    this.x = 720 * 4;
+    this.x = 720 * 5 - 500;
     this.state = STATE.PATROL;
     const allPaths = [
       ...BOSS_WALK,
@@ -51,7 +51,6 @@ export class Endboss extends MoveableObject {
    * Starts the boss AnimatioInterval and animation loop.
    */
   startAnimation() {
-    this.animInterval = setInterval(() => this.updateMovement(), 1000 / 60);
     this.imgInterval = setInterval(() => this.updateImage(), 150);
   }
 
@@ -75,9 +74,11 @@ export class Endboss extends MoveableObject {
     if (playerX < this.x) {
       this.x -= this.speed;
       this.flipped = false;
-    } else {
+    } else if (playerX > this.x) {
       this.x += this.speed;
       this.flipped = true;
+    } else {
+      this.x = STATE.ATTACK;
     }
   }
 

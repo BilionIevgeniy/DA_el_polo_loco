@@ -1,8 +1,8 @@
-import { Character } from "./character.class.js";
+import { Character } from "./heroes/character.class.js";
 import { Keyboard } from "./keyboard.class.js";
 import { SoundManager } from "./sound-manager.class.js";
 // import { StatusBar }        from "./status-bar.class.js";
-import { ThrowableObject } from "./throwable-object.class.js";
+import { ThrowableObject } from "./heroes/throwable-object.class.js";
 import {
   STATUS_BAR_HEALTH,
   STATUS_BAR_COIN,
@@ -105,7 +105,7 @@ export class Canvas {
   updateObjectsState() {
     // this.checkIfObjectThrown();
     this.updateEndbossAnimation();
-    // this.checkCollisionsWithEnemies();
+    this.checkCollisionsWithEnemies();
     // this.checkCollisionsWithCollectibles();
     // this.checkIfObjectThrownableHits();
     // this.removeDeadObjects();
@@ -125,7 +125,7 @@ export class Canvas {
     // this.level.coins.forEach((o) => o.draw(ctx));
     // this.level.bottles.forEach((o) => o.draw(ctx));
     this.throwables.forEach((o) => o.draw(ctx));
-    // this.level.enemies.forEach((o) => o.draw(ctx));
+    this.level.enemies.forEach((o) => o.draw(ctx));
     this.character.draw(ctx);
 
     ctx.restore();
@@ -171,7 +171,7 @@ export class Canvas {
     if (!boss) return;
     const dist = boss.x - this.character.x;
     if (dist < 600) boss.triggerAlert();
-    boss.updateAnimation(this.character.x);
+    boss.updateMovement(this.character.x);
   }
 
   /** Checks all enemy collisions with the character. */
@@ -190,11 +190,11 @@ export class Canvas {
    */
   handleEnemyCollision(enemy) {
     if (this.character.isJumping && this.character.verticalSpeed > 0) {
+      const enemyTop = enemy.y + enemy.hitbox.offsetY;
       const charBottom =
         this.character.y +
         this.character.hitbox.offsetY +
         this.character.hitbox.height;
-      const enemyTop = enemy.y + enemy.hitbox.offsetY;
       if (charBottom < enemyTop + 25) {
         enemy.die ? enemy.die() : (enemy.isDying = true);
         this.character.verticalSpeed = -15;
