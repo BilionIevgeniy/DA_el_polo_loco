@@ -1,5 +1,7 @@
 import { Canvas } from "./models/canvas.class.js";
 import { createLevel1 } from "./levels.js/level1.js";
+import { AssetLoader } from "./models/asset-loader.class.js";
+import { ALL_ASSET_PATHS } from "./models/constants.js";
 
 /** Reference to the running game instance, or null when on the menu. */
 let gameInstance = null;
@@ -47,8 +49,13 @@ function toggleHowToPlay() {
   document.getElementById("how-to-play").classList.toggle("hidden");
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("start-btn").addEventListener("click", startGame);
+document.addEventListener("DOMContentLoaded", async () => {
+  document.getElementById("loading").classList.remove("hidden");
+  await AssetLoader.loadAll(ALL_ASSET_PATHS);
+  document.getElementById("loading").classList.add("hidden");
+  const startBTN = document.getElementById("start-btn");
+  startBTN.disabled = false;
+  startBTN.addEventListener("click", startGame);
   document.getElementById("restart-btn").addEventListener("click", restartGame);
   document.getElementById("home-btn").addEventListener("click", goHome);
   document.getElementById("mute-btn").addEventListener("click", toggleMute);

@@ -180,3 +180,28 @@ export const STATUS_BAR_BOSS = [
   "assets/img/7_statusbars/2_statusbar_endboss/green/green80.png",
   "assets/img/7_statusbars/2_statusbar_endboss/green/green100.png",
 ];
+
+export const ALL_ASSET_PATHS = [
+  ...CHARACTER_WALK,
+  ...CHARACTER_IDLE,
+  ...CHARACTER_SLEEP,
+  ...CHARACTER_JUMP,
+  ...CHARACTER_HURT,
+  ...CHARACTER_DEAD,
+  ...CHICKEN_WALK,
+  ...CHICKEN_DEAD,
+  ...SMALL_CHICKEN_WALK,
+  ...SMALL_CHICKEN_DEAD,
+  ...BOSS_WALK,
+  ...BOSS_ALERT,
+  ...BOSS_ATTACK,
+  ...BOSS_HURT,
+  ...BOSS_DEAD,
+  ...BOTTLE_ROTATION,
+  ...BOTTLE_SPLASH,
+  ...COIN_IMAGES,
+  ...STATUS_BAR_HEALTH,
+  ...STATUS_BAR_COIN,
+  ...STATUS_BAR_BOTTLE,
+  ...STATUS_BAR_BOSS,
+];

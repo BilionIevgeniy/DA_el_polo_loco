@@ -1,3 +1,5 @@
+import { AssetLoader } from "./asset-loader.class.js";
+
 export class DrawableObject {
   x = 100;
   y = 280;
@@ -29,9 +31,13 @@ export class DrawableObject {
    */
   loadImagesByPath(paths) {
     paths.forEach((path) => {
-      const img = new Image();
-      img.src = path;
-      this.imagesCacheByPaths[path] = img;
+      this.imagesCacheByPaths[path] =
+        AssetLoader.cache[path] ||
+        (() => {
+          const img = new Image();
+          img.src = path;
+          return img;
+        })();
     });
   }
 
