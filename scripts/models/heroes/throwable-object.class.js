@@ -26,7 +26,7 @@ export class ThrowableObject extends MoveableObject {
     this.throwLeft = throwLeft;
     this.verticalSpeed = -10;
     this.loadImagesByPath([...BOTTLE_ROTATION, ...BOTTLE_SPLASH]);
-    this.img = this.imagesByPaths[BOTTLE_ROTATION[0]];
+    this.img = this.imagesCacheByPaths[BOTTLE_ROTATION[0]];
     this.startAnimation();
   }
 
@@ -71,7 +71,7 @@ export class ThrowableObject extends MoveableObject {
       this.hasHit = true;
       return;
     }
-    this.img = this.imagesByPaths[BOTTLE_SPLASH[this.currentImage]];
+    this.img = this.imagesCacheByPaths[BOTTLE_SPLASH[this.currentImage]];
     this.currentImage++;
   }
 

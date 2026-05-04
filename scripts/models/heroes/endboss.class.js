@@ -43,7 +43,7 @@ export class Endboss extends MoveableObject {
       ...BOSS_DEAD,
     ];
     this.loadImagesByPath(allPaths);
-    this.img = this.imagesByPaths[BOSS_ALERT[0]];
+    this.img = this.imagesCacheByPaths[BOSS_ALERT[0]];
     this.startAnimation();
   }
 

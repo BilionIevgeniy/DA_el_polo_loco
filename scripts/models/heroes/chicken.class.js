@@ -18,7 +18,7 @@ export class Chicken extends MoveableObject {
     this.x = 200 + Math.random() * 1500;
     this.speed = 0.3 + Math.random() * 0.3;
     this.loadImagesByPath([...CHICKEN_WALK, ...CHICKEN_DEAD]);
-    this.img = this.imagesByPaths[CHICKEN_WALK[0]];
+    this.img = this.imagesCacheByPaths[CHICKEN_WALK[0]];
     this.startAnimation();
   }
 

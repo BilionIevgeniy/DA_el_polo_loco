@@ -29,7 +29,8 @@ export class StatusBar extends DrawableObject {
    */
   setPercentage(pct) {
     this.percentage = Math.max(0, Math.min(100, pct));
-    this.img = this.imagesByPaths[this.imagePaths[this.resolveImageIndex()]];
+    this.img =
+      this.imagesCacheByPaths[this.imagePaths[this.resolveImageIndex()]];
   }
 
   /**

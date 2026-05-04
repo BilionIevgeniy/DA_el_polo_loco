@@ -19,7 +19,7 @@ export class SmallChicken extends MoveableObject {
     this.x = 400 + Math.random() * 1500;
     this.speed = 0.5 + Math.random() * 0.4;
     this.loadImagesByPath([...SMALL_CHICKEN_WALK, ...SMALL_CHICKEN_DEAD]);
-    this.img = this.imagesByPaths[SMALL_CHICKEN_WALK[0]];
+    this.img = this.imagesCacheByPaths[SMALL_CHICKEN_WALK[0]];
     this.startAnimation();
   }
 

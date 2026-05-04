@@ -28,7 +28,7 @@ export class MoveableObject extends DrawableObject {
    */
   changeMovementImg(paths) {
     const index = this.currentImage % paths.length;
-    this.img = this.imagesByPaths[paths[index]];
+    this.img = this.imagesCacheByPaths[paths[index]];
     this.currentImage++;
   }
 

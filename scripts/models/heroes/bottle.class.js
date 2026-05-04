@@ -21,7 +21,7 @@ export class Bottle extends Collectible {
     this.x = x;
     this.y = y;
     this.loadImagesByPath(BOTTLE_GROUND);
-    this.img = this.imagesByPaths[BOTTLE_GROUND[0]];
+    this.img = this.imagesCacheByPaths[BOTTLE_GROUND[0]];
     this.animateImageMovement(BOTTLE_GROUND, 400);
   }
 }

@@ -17,7 +17,7 @@ export class Coin extends Collectible {
     this.x = x;
     this.y = y;
     this.loadImagesByPath(COIN_IMAGES);
-    this.img = this.imagesByPaths[COIN_IMAGES[0]];
+    this.img = this.imagesCacheByPaths[COIN_IMAGES[0]];
     this.animateImageMovement(COIN_IMAGES, 300);
   }
 }

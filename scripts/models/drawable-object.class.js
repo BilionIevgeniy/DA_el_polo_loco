@@ -3,7 +3,7 @@ export class DrawableObject {
   y = 280;
   height = 150;
   width = 100;
-  imagesByPaths = {};
+  imagesCacheByPaths = {};
   showBoundingBox = false;
   flipped = false;
   img = null;
@@ -24,14 +24,14 @@ export class DrawableObject {
   }
 
   /**
-   * Preloads multiple images into the imagesByPaths cache.
+   * Preloads multiple images into the imagesCacheByPaths cache.
    * @param {string[]} paths - Array of image paths
    */
   loadImagesByPath(paths) {
     paths.forEach((path) => {
       const img = new Image();
       img.src = path;
-      this.imagesByPaths[path] = img;
+      this.imagesCacheByPaths[path] = img;
     });
   }
 
