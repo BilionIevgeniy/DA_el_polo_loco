@@ -122,11 +122,11 @@ export class Character extends MoveableObject {
   }
 
   /**
-   * Applies a hit and plays the hurt sound.
+   * Applies a damagedBy and plays the hurt sound.
    * @param {number} [amount=5]
    */
-  hit(amount = 5) {
-    super.hit(amount);
+  damagedBy(amount = 5) {
+    super.damagedBy(amount);
     this.sounds.play("damage");
     if (this.isDead()) this.sounds.play("dead");
   }

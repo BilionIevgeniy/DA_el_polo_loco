@@ -133,7 +133,7 @@ export class MoveableObject extends DrawableObject {
    * Reduces energy by the given amount and records the hit time.
    * @param {number} [amount=5] - Damage amount
    */
-  hit(amount = 5) {
+  damagedBy(amount = 5) {
     if (this.energy <= 0) return;
     this.energy = Math.max(0, this.energy - amount);
     this.lastHitTime = Date.now();

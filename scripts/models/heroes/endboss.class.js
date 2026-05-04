@@ -112,7 +112,7 @@ export class Endboss extends MoveableObject {
    * Applies damage and briefly enters hurt state.
    * @param {number} [amount=20]
    */
-  hit(amount = 20) {
+  damagedBy(amount = 20) {
     if (this.state === STATE.DEAD) return;
     this.energy = Math.max(0, this.energy - amount);
     this.lastHitTime = Date.now();

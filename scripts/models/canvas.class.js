@@ -165,7 +165,7 @@ export class Canvas {
         if (bottle.isColliding(bottle, enemy)) {
           bottle.hitEnemy();
           this.sounds.play("break");
-          if (enemy.hit) enemy.hit(20);
+          if (enemy.damagedBy) enemy.damagedBy(20);
         }
       });
     });
@@ -232,7 +232,7 @@ export class Canvas {
         return;
       }
     }
-    if (!this.character.isHurt()) this.character.hit();
+    if (!this.character.isHurt()) this.character.damagedBy();
   }
 
   /** Removes dead enemies and spent throwables from the level. */
