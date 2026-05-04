@@ -28,7 +28,6 @@ export class Canvas {
     this.sounds = this.createSounds();
     this.keyboard = new Keyboard();
     this.character = new Character(this);
-
     this.healthBar = new StatusBar(STATUS_BAR_HEALTH, 10, 10);
     this.coinBar = new StatusBar(STATUS_BAR_COIN, 10, 40);
     this.bottleBar = new StatusBar(STATUS_BAR_BOTTLE, 10, 70);
@@ -106,11 +105,11 @@ export class Canvas {
     this.checkIfObjectThrown();
     this.updateEndbossAnimation();
     this.checkCollisionsWithEnemies();
-    // this.checkCollisionsWithCollectibles();
-    this.checkIfObjectThrownableHits();
-    // this.removeDeadObjects();
+    this.checkCollisionsWithCollectibles();
+    this.checkIfThrownedObjectHits();
+    this.removeDeadObjects();
     this.updateStatusBar();
-    // this.checkEndConditions();
+    this.checkEndConditions();
   }
 
   /** Renders all game objects to the canvas. */
@@ -122,8 +121,8 @@ export class Canvas {
 
     this.level.backgroundObjects.forEach((o) => o.draw(ctx));
     this.level.cloud.forEach((o) => o.draw(ctx));
-    // this.level.coins.forEach((o) => o.draw(ctx));
-    // this.level.bottles.forEach((o) => o.draw(ctx));
+    this.level.coins.forEach((o) => o.draw(ctx));
+    this.level.bottles.forEach((o) => o.draw(ctx));
     this.throwables.forEach((o) => o.draw(ctx));
     this.level.enemies.forEach((o) => o.draw(ctx));
     this.character.draw(ctx);
@@ -157,7 +156,7 @@ export class Canvas {
   }
 
   /** Checks collisions of all throwables with enemies. */
-  checkIfObjectThrownableHits() {
+  checkIfThrownedObjectHits() {
     this.throwables.forEach((bottle) => {
       if (bottle.isSplashing) return;
       this.level.enemies.forEach((enemy) => {

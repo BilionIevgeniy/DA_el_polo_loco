@@ -2,8 +2,8 @@ import { BackgroundObject } from "../models/heroes/background-object.class.js";
 import { Chicken } from "../models/heroes/chicken.class.js";
 import { SmallChicken } from "../models/heroes/small-chicken.class.js";
 import { Cloud } from "../models/heroes/cloud.class.js";
-// import { Coin } from "../models/coin.class.js";
-// import { Bottle } from "../models/bottle.class.js";
+import { Coin } from "../models/heroes/coin.class.js";
+import { Bottle } from "../models/heroes/bottle.class.js";
 import { Endboss } from "../models/heroes/endboss.class.js";
 import { Level } from "../models/level.class.js";
 
@@ -44,35 +44,37 @@ function buildClouds() {
   );
 }
 
-// /** @returns {Coin[]} Coins placed at various world positions */
-// function buildCoins() {
-//   const positions = [
-//     [300, 280],
-//     [500, 260],
-//     [750, 300],
-//     [1000, 270],
-//     [1300, 290],
-//     [1600, 260],
-//     [1900, 300],
-//     [2200, 280],
-//     [2500, 270],
-//     [2800, 290],
-//   ];
-//   return positions.map(([x, y]) => new Coin(x, y));
-// }
+/** @returns {Coin[]} Coins placed at various world positions */
+function buildCoins() {
+  const positions = [
+    [300, 280],
+    [500, 260],
+    [750, 300],
+    [1000, 270],
+    [1300, 290],
+    [1600, 260],
+    [1900, 300],
+    [2200, 280],
+    [2500, 270],
+    [2800, 290],
+  ];
+  return positions.map(([x, y]) => new Coin(x, y));
+}
 
-// /** @returns {Bottle[]} Bottles placed on the ground throughout the level */
-// function buildBottles() {
-//   const positions = [
-//     [400, 360],
-//     [800, 360],
-//     [1200, 360],
-//     [1700, 360],
-//     [2100, 360],
-//     [2600, 360],
-//   ];
-//   return positions.map(([x, y]) => new Bottle(x, y));
-// }
+/** @returns {Bottle[]} Bottles placed on the ground throughout the level */
+function buildBottles() {
+  const positions = [
+    [400, 360],
+    [600, 360],
+    [800, 360],
+    [1000, 360],
+    [1200, 360],
+    [1700, 360],
+    [2100, 360],
+    [2600, 360],
+  ];
+  return positions.map(([x, y]) => new Bottle(x, y));
+}
 
 /** @returns {Level} A fully populated Level 1 instance */
 export function createLevel1() {
@@ -92,7 +94,7 @@ export function createLevel1() {
     ],
     buildClouds(),
     buildBackground(),
-    // buildCoins(),
-    // buildBottles(),
+    buildCoins(),
+    buildBottles(),
   );
 }

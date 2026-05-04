@@ -10,7 +10,7 @@ export class ThrowableObject extends MoveableObject {
   speed = 12;
   isSplashing = false;
   hasHit = false;
-  groundY = 380;
+  groundY = 360;
 
   hitbox = { offsetX: 5, offsetY: 5, width: 50, height: 65 };
 
@@ -38,7 +38,7 @@ export class ThrowableObject extends MoveableObject {
   /** Updates position and animation each tick. */
   updateFrame() {
     if (this.isSplashing) {
-      this.playSplash();
+      this.startSplashAnimation();
       return;
     }
     this.moveHorizontal();
@@ -55,17 +55,17 @@ export class ThrowableObject extends MoveableObject {
   applyThrowGravity() {
     this.y += this.verticalSpeed;
     this.verticalSpeed += 1.5;
-    if (this.y >= this.groundY) this.triggerSplash();
+    if (this.y >= this.groundY) this.endRotateAnimation();
   }
 
-  /** Triggers the splash animation when the bottle hits the ground. */
-  triggerSplash() {
+  /** End the splash animation when the bottle hits the ground. */
+  endRotateAnimation() {
     this.isSplashing = true;
     this.currentImage = 0;
   }
 
   /** Advances the splash animation and marks done when finished. */
-  playSplash() {
+  startSplashAnimation() {
     if (this.currentImage >= BOTTLE_SPLASH.length) {
       clearInterval(this.animationInterval);
       this.hasHit = true;
@@ -75,9 +75,9 @@ export class ThrowableObject extends MoveableObject {
     this.currentImage++;
   }
 
-  /** Triggers a splash on enemy hit (not ground). */
+  /** (PUBLIC) Triggers a splash on enemy hit (not ground)in CANVAS. */
   hitEnemy() {
-    this.triggerSplash();
+    this.endRotateAnimation();
     this.speed = 0;
     this.verticalSpeed = 0;
   }

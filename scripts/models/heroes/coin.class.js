@@ -1,5 +1,5 @@
-import { Collectible } from "./collectible.class.js";
-import { COIN_IMAGES } from "./constants.js";
+import { Collectible } from "../collectible.class.js";
+import { COIN_IMAGES } from "../constants.js";
 
 /**
  * A coin that the character can pick up to increase the coin status bar.
