@@ -27,10 +27,15 @@ export class AssetLoader {
     return new Promise((resolve) => {
       const img = new Image();
       img.onload = () => {
-        img.decode?.().finally(() => {
-          this.cache[path] = img;
-          resolve();
-        });
+        img
+          .decode?.()
+          .then(() => {
+            this.cache[path] = img;
+          })
+          .catch(() => {
+            this.cache[path] = img;
+          }) // ← не падаем, просто берём как есть
+          .finally(resolve);
       };
       img.onerror = () => {
         console.warn("❌ Not found:", path);
