@@ -103,11 +103,11 @@ export class Canvas {
 
   /** Updates all game logic each frame. */
   updateObjectsState() {
-    // this.checkIfObjectThrown();
+    this.checkIfObjectThrown();
     this.updateEndbossAnimation();
     this.checkCollisionsWithEnemies();
     // this.checkCollisionsWithCollectibles();
-    // this.checkIfObjectThrownableHits();
+    this.checkIfObjectThrownableHits();
     // this.removeDeadObjects();
     this.updateStatusBar();
     // this.checkEndConditions();
@@ -140,13 +140,6 @@ export class Canvas {
     if (this.bossVisible()) this.bossBar.draw(ctx);
   }
 
-  /** @returns {boolean} True when the endboss should show its health bar */
-  bossVisible() {
-    return this.level.enemies.some(
-      (e) => e.hasBeenIntroduced && !e.deathAnimDone,
-    );
-  }
-
   /** Checks if the player pressed throw and has bottles. */
   checkIfObjectThrown() {
     if (!this.keyboard.THROW || this.throwCooldown) return;
@@ -161,48 +154,6 @@ export class Canvas {
     this.sounds.play("break");
     this.throwCooldown = true;
     setTimeout(() => (this.throwCooldown = false), 400);
-  }
-
-  /** Passes the player's x position to the endboss AnimatioInterval each frame. */
-  updateEndbossAnimation() {
-    const boss = this.level.enemies.find(
-      (e) => e.hasBeenIntroduced !== undefined,
-    );
-    if (!boss) return;
-    const dist = boss.x - this.character.x;
-    if (dist < 600) boss.triggerAlert();
-    boss.updateMovement(this.character.x);
-  }
-
-  /** Checks all enemy collisions with the character. */
-  checkCollisionsWithEnemies() {
-    this.level.enemies.forEach((enemy) => {
-      if (enemy.isDying) return;
-      if (this.character.isColliding(this.character, enemy)) {
-        this.handleEnemyCollision(enemy);
-      }
-    });
-  }
-
-  /**
-   * Handles a collision between character and an enemy.
-   * @param {MoveableObject} enemy
-   */
-  handleEnemyCollision(enemy) {
-    if (this.character.isJumping && this.character.verticalSpeed > 0) {
-      const enemyTop = enemy.y + enemy.hitbox.offsetY;
-      const charBottom =
-        this.character.y +
-        this.character.hitbox.offsetY +
-        this.character.hitbox.height;
-      if (charBottom < enemyTop + 25) {
-        enemy.die ? enemy.die() : (enemy.isDying = true);
-        this.character.verticalSpeed = -15;
-        this.sounds.play("cluck");
-        return;
-      }
-    }
-    if (!this.character.isHurt()) this.character.hit();
   }
 
   /** Checks collisions of all throwables with enemies. */
@@ -238,6 +189,52 @@ export class Canvas {
     });
   }
 
+  /** Checks win and lose conditions and triggers the end screen. */
+  checkEndConditions() {
+    if (this.character.isDead()) {
+      this.gameOver = true;
+      setTimeout(() => this.showEndScreen(false), 1500);
+    }
+    const boss = this.level.enemies.find(
+      (e) => e.hasBeenIntroduced !== undefined,
+    );
+    if (boss && boss.deathAnimDone) {
+      this.gameWon = true;
+      setTimeout(() => this.showEndScreen(true), 1500);
+    }
+  }
+
+  /** Checks all enemy collisions with the character. */
+  checkCollisionsWithEnemies() {
+    this.level.enemies.forEach((enemy) => {
+      if (enemy.isDying) return;
+      if (this.character.isColliding(this.character, enemy)) {
+        this.handleEnemyCollision(enemy);
+      }
+    });
+  }
+
+  /**
+   * Handles a collision between character and an enemy.
+   * @param {MoveableObject} enemy
+   */
+  handleEnemyCollision(enemy) {
+    if (this.character.isJumping && this.character.verticalSpeed > 0) {
+      const enemyTop = enemy.y + enemy.hitbox.offsetY;
+      const charBottom =
+        this.character.y +
+        this.character.hitbox.offsetY +
+        this.character.hitbox.height;
+      if (charBottom < enemyTop + 25) {
+        enemy.die ? enemy.die() : (enemy.isDying = true);
+        this.character.verticalSpeed = -15;
+        this.sounds.play("cluck");
+        return;
+      }
+    }
+    if (!this.character.isHurt()) this.character.hit();
+  }
+
   /** Removes dead enemies and spent throwables from the level. */
   removeDeadObjects() {
     this.level.enemies = this.level.enemies.filter((e) => !e.deathAnimDone);
@@ -257,19 +254,22 @@ export class Canvas {
     if (boss) this.bossBar.setPercentage(boss.energy);
   }
 
-  /** Checks win and lose conditions and triggers the end screen. */
-  checkEndConditions() {
-    if (this.character.isDead()) {
-      this.gameOver = true;
-      setTimeout(() => this.showEndScreen(false), 1500);
-    }
+  /** @returns {boolean} True when the endboss should show its health bar */
+  bossVisible() {
+    return this.level.enemies.some(
+      (e) => e.hasBeenIntroduced && !e.deathAnimDone,
+    );
+  }
+
+  /** Passes the player's x position to the endboss AnimatioInterval each frame. */
+  updateEndbossAnimation() {
     const boss = this.level.enemies.find(
       (e) => e.hasBeenIntroduced !== undefined,
     );
-    if (boss && boss.deathAnimDone) {
-      this.gameWon = true;
-      setTimeout(() => this.showEndScreen(true), 1500);
-    }
+    if (!boss) return;
+    const dist = boss.x - this.character.x;
+    if (dist < 600) boss.triggerAlert();
+    boss.updateMovement(this.character.x);
   }
 
   /**
