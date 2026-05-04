@@ -192,14 +192,16 @@ export class Canvas {
   checkEndConditions() {
     if (this.character.isDead()) {
       this.gameOver = true;
-      setTimeout(() => this.showEndScreen(false), 1500);
-    }
-    const boss = this.level.enemies.find(
-      (e) => e.hasBeenIntroduced !== undefined,
-    );
-    if (boss && boss.deathAnimDone) {
-      this.gameWon = true;
-      setTimeout(() => this.showEndScreen(true), 1500);
+      setTimeout(() => this.showEndScreen(false), 1000);
+    } else {
+      const boss = this.level.enemies.find(
+        (e) => e.hasBeenIntroduced !== undefined,
+      );
+
+      if (boss && boss.isDead) {
+        this.gameWon = true;
+        setTimeout(() => this.showEndScreen(true), 1000);
+      }
     }
   }
 
@@ -255,9 +257,7 @@ export class Canvas {
 
   /** @returns {boolean} True when the endboss should show its health bar */
   bossVisible() {
-    return this.level.enemies.some(
-      (e) => e.hasBeenIntroduced && !e.deathAnimDone,
-    );
+    return this.level.enemies.some((e) => e.hasBeenIntroduced);
   }
 
   /** Passes the player's x position to the endboss AnimatioInterval each frame. */

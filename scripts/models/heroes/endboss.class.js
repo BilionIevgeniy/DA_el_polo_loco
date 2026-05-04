@@ -26,7 +26,7 @@ export class Endboss extends MoveableObject {
   energy = 100;
   speed = 1.5;
   isDying = false;
-  deathAnimDone = false;
+  isDead = false;
   hasBeenIntroduced = false;
 
   hitbox = { offsetX: 40, offsetY: 80, width: 170, height: 300 };
@@ -132,7 +132,7 @@ export class Endboss extends MoveableObject {
     this.isDying = true;
     this.state = STATE.DEAD;
     setTimeout(() => {
-      this.deathAnimDone = true;
+      this.isDead = true;
     }, 1200);
   }
 }
