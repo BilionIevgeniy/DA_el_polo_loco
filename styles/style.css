@@ -1,7 +1,8 @@
 @import url("./reset.css");
 @font-face {
   font-family: "Boogaloo";
-  src: url("../assets/fonts/Boogaloo-Regular.ttf");
+  src: url("../assets/fonts/BoogalooRegular/Boogaloo-Regular.ttf")
+    format("truetype");
 }
 
 :root {
