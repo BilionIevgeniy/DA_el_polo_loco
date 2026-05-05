@@ -90,7 +90,7 @@ export const BOSS_WALK = [
   "assets/img/4_enemie_boss_chicken/1_walk/G4.png",
 ];
 
-export const BOSS_ALERT = [
+export const BOSS_INTRODUCED = [
   "assets/img/4_enemie_boss_chicken/2_alert/G5.png",
   "assets/img/4_enemie_boss_chicken/2_alert/G6.png",
   "assets/img/4_enemie_boss_chicken/2_alert/G7.png",
@@ -193,7 +193,7 @@ export const ALL_ASSET_PATHS = [
   ...SMALL_CHICKEN_WALK,
   ...SMALL_CHICKEN_DEAD,
   ...BOSS_WALK,
-  ...BOSS_ALERT,
+  ...BOSS_INTRODUCED,
   ...BOSS_ATTACK,
   ...BOSS_HURT,
   ...BOSS_DEAD,

@@ -272,12 +272,11 @@ canvas {
 }
 
 /* ── Responsiveness ── */
-@media (max-width: 740px) {
+@media (max-width: 1060px) and (orientation: landscape) {
   :root {
-    --canvas-w: 100vw;
-    --canvas-h: 56.25vw;
+    --canvas-w: 100%;
+    --canvas-h: 100vh;
   }
-
   #mobile-controls {
     display: flex;
   }

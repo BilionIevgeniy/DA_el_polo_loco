@@ -267,7 +267,7 @@ export class Canvas {
     );
     if (!boss) return;
     const dist = boss.x - this.character.x;
-    if (dist < 600) boss.triggerAlert();
+    if (dist < 600) boss.introduceBoss();
     boss.updateMovement(this.character.x);
   }
 

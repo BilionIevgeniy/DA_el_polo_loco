@@ -1,7 +1,7 @@
 import { MoveableObject } from "../moveable-object.class.js";
 import {
   BOSS_WALK,
-  BOSS_ALERT,
+  BOSS_INTRODUCED,
   BOSS_ATTACK,
   BOSS_HURT,
   BOSS_DEAD,
@@ -9,15 +9,15 @@ import {
 
 /** Endboss states. */
 const STATE = {
-  PATROL: "patrol",
-  ALERT: "alert",
+  WALK: "walk",
+  INTRODUCED: "introduced",
   ATTACK: "attack",
   HURT: "hurt",
   DEAD: "dead",
 };
 
 /**
- * The endboss chicken with multi-state AnimatioInterval: patrol → alert on player sight → attack.
+ * The endboss chicken with multi-state AnimatioInterval: patrol → introduced on player sight → attack.
  */
 export class Endboss extends MoveableObject {
   y = 60;
@@ -34,16 +34,16 @@ export class Endboss extends MoveableObject {
   constructor() {
     super();
     this.x = 720 * 5 - 500;
-    this.state = STATE.PATROL;
+    this.state = STATE.WALK;
     const allPaths = [
       ...BOSS_WALK,
-      ...BOSS_ALERT,
+      ...BOSS_INTRODUCED,
       ...BOSS_ATTACK,
       ...BOSS_HURT,
       ...BOSS_DEAD,
     ];
     this.loadImagesByPath(allPaths);
-    this.img = this.imagesCacheByPaths[BOSS_ALERT[0]];
+    this.img = this.imagesCacheByPaths[BOSS_INTRODUCED[0]];
     this.startAnimation();
   }
 
@@ -61,7 +61,7 @@ export class Endboss extends MoveableObject {
   updateMovement(playerX = 0) {
     if (this.state === STATE.DEAD) return;
     if (this.state === STATE.HURT) return;
-    if (this.state === STATE.ATTACK || this.state === STATE.ALERT) {
+    if (this.state === STATE.ATTACK || this.state === STATE.INTRODUCED) {
       this.chasePlayer(playerX);
     }
   }
@@ -83,12 +83,12 @@ export class Endboss extends MoveableObject {
   }
 
   /**
-   * Transitions to alert state when the player first enters boss range.
+   * Transitions to introduced state when the player first enters boss range.
    */
-  triggerAlert() {
+  introduceBoss() {
     if (this.hasBeenIntroduced) return;
     this.hasBeenIntroduced = true;
-    this.state = STATE.ALERT;
+    this.state = STATE.INTRODUCED;
     setTimeout(() => {
       if (this.state !== STATE.DEAD) this.state = STATE.ATTACK;
     }, 2000);
@@ -99,8 +99,8 @@ export class Endboss extends MoveableObject {
    */
   updateImage() {
     const map = {
-      [STATE.PATROL]: BOSS_WALK,
-      [STATE.ALERT]: BOSS_ALERT,
+      [STATE.WALK]: BOSS_WALK,
+      [STATE.INTRODUCED]: BOSS_INTRODUCED,
       [STATE.ATTACK]: BOSS_WALK,
       [STATE.HURT]: BOSS_HURT,
       [STATE.DEAD]: BOSS_DEAD,
