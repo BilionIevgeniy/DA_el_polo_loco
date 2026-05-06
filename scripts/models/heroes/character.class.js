@@ -18,7 +18,7 @@ export class Character extends MoveableObject {
   width = 100;
   y = 155;
   groundY = 155;
-  speed = 15;
+  speed = 10;
   flipped = false;
   gravity = 2;
   jumpStrength = 28;
@@ -26,6 +26,7 @@ export class Character extends MoveableObject {
   coins = 0;
   bottleCount = 0;
   lastActionTime = Date.now();
+  animationSpeed = 3;
 
   hitbox = { offsetX: 20, offsetY: 110, width: 60, height: 155 };
 
