@@ -220,7 +220,13 @@ export class Canvas {
    * @param {MoveableObject} enemy
    */
   handleEnemyCollision(enemy) {
-    if (this.character.isJumping && this.character.verticalSpeed > 0) {
+    if (
+      this.character.isJumping &&
+      this.character.verticalSpeed > 0 &&
+      !enemy.isBoss
+    ) {
+      console.log(2222);
+
       const enemyTop = enemy.y + enemy.hitbox.offsetY;
       const charBottom =
         this.character.y +
@@ -233,7 +239,7 @@ export class Canvas {
         return;
       }
     }
-    if (!this.character.isHurt()) this.character.damagedBy();
+    if (!this.character.isHurt()) this.character.damagedBy(5);
   }
 
   /** Removes dead enemies and spent throwables from the level. */

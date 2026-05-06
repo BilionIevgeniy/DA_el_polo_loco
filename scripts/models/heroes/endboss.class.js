@@ -27,6 +27,7 @@ export class Endboss extends MoveableObject {
   speed = 1.5;
   isDying = false;
   isDead = false;
+  isBoss = true;
   hasBeenIntroduced = false;
 
   hitbox = { offsetX: 40, offsetY: 80, width: 170, height: 300 };
@@ -77,8 +78,6 @@ export class Endboss extends MoveableObject {
     } else if (playerX > this.x) {
       this.x += this.speed;
       this.flipped = true;
-    } else {
-      this.x = STATE.ATTACK;
     }
   }
 

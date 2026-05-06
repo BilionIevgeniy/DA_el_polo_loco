@@ -275,7 +275,7 @@ canvas {
 @media (max-width: 1060px) and (orientation: landscape) {
   :root {
     --canvas-w: 100%;
-    --canvas-h: 100vh;
+    --canvas-h: 100dvh;
   }
   #mobile-controls {
     display: flex;
