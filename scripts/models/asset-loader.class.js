@@ -1,5 +1,3 @@
-// scripts/models/asset-loader.class.js
-
 /**
  * Preloads all game images before the game starts.
  */

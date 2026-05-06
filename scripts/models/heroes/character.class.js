@@ -78,6 +78,7 @@ export class Character extends MoveableObject {
 
   /** Processes keyboard input and moves the character. */
   handleKeyboard() {
+    if (this.isDead()) return;
     const kb = this.canvas.keyboard;
     if (kb.RIGHT && this.x < this.canvas.level.level_end_right_x)
       this.walkRight();

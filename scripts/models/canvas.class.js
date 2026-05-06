@@ -118,7 +118,6 @@ export class Canvas {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.save();
     ctx.translate(this.kamera_x, 0);
-
     this.level.backgroundObjects.forEach((o) => o.draw(ctx));
     this.level.cloud.forEach((o) => o.draw(ctx));
     this.level.coins.forEach((o) => o.draw(ctx));
@@ -126,7 +125,6 @@ export class Canvas {
     this.throwables.forEach((o) => o.draw(ctx));
     this.level.enemies.forEach((o) => o.draw(ctx));
     this.character.draw(ctx);
-
     ctx.restore();
     this.drawStatusBar(ctx);
   }
