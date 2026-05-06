@@ -47,6 +47,16 @@ function buildClouds() {
 /** @returns {Coin[]} Coins placed at various world positions */
 function buildCoins() {
   const positions = [
+    [-100, 270],
+    [-200, 260],
+    [-300, 300],
+    [-400, 250],
+    [-500, 270],
+    [-600, 260],
+    [-700, 300],
+    [-800, 250],
+    [100, 280],
+    [200, 260],
     [300, 280],
     [500, 260],
     [750, 300],
