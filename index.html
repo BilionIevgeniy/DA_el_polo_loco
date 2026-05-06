@@ -45,6 +45,18 @@
 
   <!-- ── Game canvas ── -->
   <div id="game-wrapper" class="hidden">
+
+    <!-- ── Mobile touch controls ── -->
+    <div id="mobile-controls" class="hidden">
+      <div class="mobile-left">
+        <button id="btn-left" class="touch-btn">←</button>
+        <button id="btn-right" class="touch-btn">→</button>
+      </div>
+      <div class="mobile-right">
+        <button id="btn-jump" class="touch-btn">↑</button>
+        <button id="btn-throw" class="touch-btn">🍶</button>
+      </div>
+    </div>
     <canvas id="myCanvas" width="720" height="480"></canvas>
   </div>
 
@@ -58,19 +70,10 @@
   </div>
 
   <!-- ── Mute button ── -->
+  <button id="touch-toggle-btn" class="hidden" aria-label="Toggle touch controls">🎮</button>
   <button id="mute-btn" class="hidden" aria-label="Toggle sound">🔊</button>
 
-  <!-- ── Mobile touch controls ── -->
-  <div id="mobile-controls" class="hidden">
-    <div class="mobile-left">
-      <button id="btn-left" class="touch-btn">←</button>
-      <button id="btn-right" class="touch-btn">→</button>
-    </div>
-    <div class="mobile-right">
-      <button id="btn-jump" class="touch-btn">↑</button>
-      <button id="btn-throw" class="touch-btn">🍶</button>
-    </div>
-  </div>
+
 
   <div id="loading" class="screen hidden">
     <h1>Loading...</h1>

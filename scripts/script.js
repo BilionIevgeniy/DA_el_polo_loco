@@ -11,12 +11,13 @@ function startGame() {
   const level = createLevel1();
   gameInstance = new Canvas(level);
   gameInstance.init();
-
+  document.getElementById("touch-toggle-btn").classList.remove("hidden");
   document.getElementById("start-screen").classList.add("hidden");
   document.getElementById("end-screen").classList.add("hidden");
   document.getElementById("game-wrapper").classList.remove("hidden");
   document.getElementById("mute-btn").classList.remove("hidden");
   document.getElementById("mobile-controls").classList.remove("hidden");
+  showTouchControlsIfMobile();
 }
 
 /** Restarts the game without reloading the page. */
@@ -49,6 +50,37 @@ function toggleHowToPlay() {
   document.getElementById("how-to-play").classList.toggle("hidden");
 }
 
+/** Toggles the mobile touch controls. */
+function toggleTouchControls() {
+  const controls = document.getElementById("mobile-controls");
+  const toggleBtn = document.getElementById("touch-toggle-btn");
+  const isVisible = controls.classList.toggle("visible");
+  toggleBtn.textContent = isVisible ? "🕹️" : "🎮";
+}
+
+/** Shows or hides the mobile touch controls depending on screen size. */
+function showTouchControlsIfMobile() {
+  const isMobile = window.innerWidth <= 1060;
+  const controls = document.getElementById("mobile-controls");
+  const toggleBtn = document.getElementById("touch-toggle-btn");
+
+  if (navigator.maxTouchPoints <= 0) {
+    toggleBtn.classList.add("hidden");
+    controls.classList.remove("visible");
+    controls.classList.add("hidden");
+    return;
+  }
+  if (isMobile) {
+    controls.classList.add("visible");
+    toggleBtn.classList.add("hidden");
+    toggleBtn.textContent = "🕹️";
+  } else {
+    controls.classList.remove("visible");
+    toggleBtn.classList.remove("hidden");
+    toggleBtn.textContent = "🎮";
+  }
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
   document.getElementById("loading").classList.remove("hidden");
   await AssetLoader.loadAll(ALL_ASSET_PATHS);
@@ -68,7 +100,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   document.getElementById("how-to-play").addEventListener("click", (e) => {
     if (e.target === e.currentTarget) toggleHowToPlay();
   });
+  document
+    .getElementById("touch-toggle-btn")
+    .addEventListener("click", toggleTouchControls);
 
   const muted = localStorage.getItem("elPolloLoco_muted") === "true";
   document.getElementById("mute-btn").textContent = muted ? "🔇" : "🔊";
 });
+
+window.addEventListener("resize", showTouchControlsIfMobile);

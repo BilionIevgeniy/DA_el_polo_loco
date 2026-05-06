@@ -2,16 +2,16 @@
  * Tracks the state of keyboard keys and mobile touch buttons.
  */
 export class Keyboard {
-  LEFT  = false;
+  LEFT = false;
   RIGHT = false;
-  UP    = false;
-  DOWN  = false;
+  UP = false;
+  DOWN = false;
   SPACE = false;
   THROW = false;
 
   constructor() {
     window.addEventListener("keydown", (e) => this.onKeyDown(e));
-    window.addEventListener("keyup",   (e) => this.onKeyUp(e));
+    window.addEventListener("keyup", (e) => this.onKeyUp(e));
     this.bindMobileButtons();
   }
 
@@ -21,12 +21,12 @@ export class Keyboard {
    */
   onKeyDown(e) {
     const map = {
-      ArrowLeft:  "LEFT",
+      ArrowLeft: "LEFT",
       ArrowRight: "RIGHT",
-      ArrowUp:    "UP",
-      ArrowDown:  "DOWN",
-      Space:      "SPACE",
-      KeyD:       "THROW",
+      ArrowUp: "UP",
+      ArrowDown: "DOWN",
+      Space: "SPACE",
+      KeyD: "THROW",
     };
     if (map[e.code]) this[map[e.code]] = true;
   }
@@ -37,12 +37,12 @@ export class Keyboard {
    */
   onKeyUp(e) {
     const map = {
-      ArrowLeft:  "LEFT",
+      ArrowLeft: "LEFT",
       ArrowRight: "RIGHT",
-      ArrowUp:    "UP",
-      ArrowDown:  "DOWN",
-      Space:      "SPACE",
-      KeyD:       "THROW",
+      ArrowUp: "UP",
+      ArrowDown: "DOWN",
+      Space: "SPACE",
+      KeyD: "THROW",
     };
     if (map[e.code]) this[map[e.code]] = false;
   }
@@ -52,16 +52,30 @@ export class Keyboard {
    */
   bindMobileButtons() {
     const bindings = {
-      "btn-left":  "LEFT",
+      "btn-left": "LEFT",
       "btn-right": "RIGHT",
-      "btn-jump":  "UP",
+      "btn-jump": "UP",
       "btn-throw": "THROW",
     };
     Object.entries(bindings).forEach(([id, flag]) => {
       const el = document.getElementById(id);
       if (!el) return;
-      el.addEventListener("touchstart", (e) => { e.preventDefault(); this[flag] = true;  }, { passive: false });
-      el.addEventListener("touchend",   (e) => { e.preventDefault(); this[flag] = false; }, { passive: false });
+      el.addEventListener(
+        "touchstart",
+        (e) => {
+          e.preventDefault();
+          this[flag] = true;
+        },
+        { passive: false },
+      );
+      el.addEventListener(
+        "touchend",
+        (e) => {
+          e.preventDefault();
+          this[flag] = false;
+        },
+        { passive: false },
+      );
       el.addEventListener("contextmenu", (e) => e.preventDefault());
     });
   }

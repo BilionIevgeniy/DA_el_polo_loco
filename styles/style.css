@@ -199,18 +199,22 @@ canvas {
 /* ── Mobile controls ── */
 #mobile-controls {
   display: none;
-  position: fixed;
+  position: absolute;
+  left: 0;
   bottom: 1rem;
   width: 100%;
   padding: 0 1rem;
   justify-content: space-between;
   align-items: flex-end;
-  z-index: 20;
+  z-index: 100;
   pointer-events: none;
 }
 
 #mobile-controls.hidden {
   display: none !important;
+}
+#mobile-controls.visible {
+  display: flex;
 }
 
 .mobile-left,
@@ -293,6 +297,28 @@ canvas {
   animation: pulse 1s ease-in-out infinite;
 }
 
+#touch-toggle-btn {
+  position: fixed;
+  top: 12px;
+  right: 64px;
+  font-size: 1.6rem;
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  cursor: pointer;
+  z-index: 20;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#touch-toggle-btn.hidden {
+  display: none;
+}
+
 @keyframes pulse {
   0%,
   100% {
@@ -308,9 +334,6 @@ canvas {
   :root {
     --canvas-w: 100%;
     --canvas-h: 100dvh;
-  }
-  #mobile-controls {
-    display: flex;
   }
 }
 
