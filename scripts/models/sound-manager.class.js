@@ -17,10 +17,10 @@ export class SoundManager {
    * @param {boolean} [loop=false] - Whether the sound loops
    * @returns {HTMLAudioElement}
    */
-  registerSound(key, src, loop = false) {
+  registerSound(key, src, loop = false, volume = 0.1) {
     const audio = new Audio(src);
     audio.loop = loop;
-    audio.volume = 0.1;
+    audio.volume = volume;
     audio.muted = this.muted;
     this.sounds[key] = audio;
     return audio;
@@ -33,6 +33,14 @@ export class SoundManager {
   play(key) {
     const sound = this.sounds[key];
     if (!sound || this.muted) return;
+    if (sound.loop) {
+      if (sound.paused) sound.play().catch(() => {});
+      return;
+    }
+    if (sound.paused || sound.ended) {
+      sound.currentTime = 0;
+      sound.play().catch(() => {});
+    }
     if (key !== "walk") sound.currentTime = 0;
     sound.play().catch(() => {
       console.log("Error in sound");

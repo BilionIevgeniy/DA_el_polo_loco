@@ -40,17 +40,24 @@ export class Canvas {
    */
   createSounds() {
     const sm = new SoundManager();
-    sm.registerSound("music", "assets/sounds/game/gameStart.mp3", false);
-    sm.registerSound("walk", "assets/sounds/character/characterRun.mp3", true);
+    sm.registerSound("music", "assets/sounds/game/gameStart.mp3", false, 0.2);
+    sm.registerSound(
+      "walk",
+      "assets/sounds/character/characterRun.mp3",
+      true,
+      0.3,
+    );
     sm.registerSound(
       "jump",
       "assets/sounds/character/characterJump.wav",
       false,
+      0.3,
     );
     sm.registerSound(
       "damage",
       "assets/sounds/character/characterDamage.mp3",
       false,
+      0.4,
     );
     sm.registerSound(
       "dead",
@@ -78,7 +85,12 @@ export class Canvas {
       "assets/sounds/endboss/endbossApproach.wav",
       false,
     );
-    sm.registerSound("cluck", "assets/sounds/chicken/chickenDead.mp3", false);
+    sm.registerSound(
+      "cluck",
+      "assets/sounds/chicken/chickenDead.mp3",
+      false,
+      0.3,
+    );
     return sm;
   }
 

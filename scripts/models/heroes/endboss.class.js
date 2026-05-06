@@ -53,6 +53,15 @@ export class Endboss extends MoveableObject {
    */
   startAnimation() {
     this.imgInterval = setInterval(() => this.updateImage(), 150);
+    this.attackInterval = setInterval(() => this.tryAttack(), 2000);
+  }
+
+  tryAttack() {
+    if (this.state !== STATE.ATTACK) return;
+    this.state = STATE.ATTACK;
+    // босс делает рывок к игроку
+    this.speed = 4; // временно ускоряется
+    setTimeout(() => (this.speed = 1.5), 600);
   }
 
   /**
