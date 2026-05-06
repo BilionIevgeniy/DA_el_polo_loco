@@ -8,7 +8,7 @@ import {
   CHARACTER_DEAD,
 } from "../constants.js";
 
-const SLEEP_TIMEOUT_MS = 15000;
+const SLEEP_TIMEOUT_MS = 7000;
 
 /**
  * The player-controlled character with walk, jump, idle, sleep, hurt and dead states.
@@ -129,6 +129,7 @@ export class Character extends MoveableObject {
    */
   damagedBy(amount = 5) {
     super.damagedBy(amount);
+    this.lastActionTime = Date.now();
     this.sounds.play("damage");
     if (this.isDead()) this.sounds.play("dead");
   }

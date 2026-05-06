@@ -81,10 +81,12 @@ export class Endboss extends MoveableObject {
    * @param {number} playerX
    */
   chasePlayer(playerX) {
-    if (playerX < this.x) {
+    const distance = playerX - this.x;
+    if (playerX === this.x) return;
+    if (distance < 0) {
       this.x -= this.speed;
       this.flipped = false;
-    } else if (playerX > this.x) {
+    } else {
       this.x += this.speed;
       this.flipped = true;
     }
@@ -109,7 +111,7 @@ export class Endboss extends MoveableObject {
     const map = {
       [STATE.WALK]: BOSS_WALK,
       [STATE.INTRODUCED]: BOSS_INTRODUCED,
-      [STATE.ATTACK]: BOSS_WALK,
+      [STATE.ATTACK]: BOSS_ATTACK,
       [STATE.HURT]: BOSS_HURT,
       [STATE.DEAD]: BOSS_DEAD,
     };
