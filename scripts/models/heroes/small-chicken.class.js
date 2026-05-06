@@ -5,7 +5,7 @@ import { SMALL_CHICKEN_WALK, SMALL_CHICKEN_DEAD } from "../constants.js";
  * A smaller, faster chicken enemy — the second enemy type.
  */
 export class SmallChicken extends MoveableObject {
-  y = 375;
+  y = 385;
   height = 40;
   width = 40;
   isDying = false;

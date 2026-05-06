@@ -5,7 +5,7 @@ import { CHICKEN_WALK, CHICKEN_DEAD } from "../constants.js";
  * A normal-sized chicken enemy that walks left and can be killed by a jump or bottle.
  */
 export class Chicken extends MoveableObject {
-  y = 360;
+  y = 367;
   height = 60;
   width = 60;
   isDying = false;
