@@ -223,8 +223,6 @@ export class Canvas {
       this.character.verticalSpeed > 0 &&
       !enemy.isBoss
     ) {
-      console.log(2222);
-
       const enemyTop = enemy.y + enemy.hitbox.offsetY;
       const charBottom =
         this.character.y +
@@ -232,12 +230,13 @@ export class Canvas {
         this.character.hitbox.height;
       if (charBottom < enemyTop + 25) {
         enemy.die ? enemy.die() : (enemy.isDying = true);
-        this.character.verticalSpeed = -15;
+        this.character.jump();
         this.sounds.play("cluck");
         return;
       }
     }
-    if (!this.character.isHurt()) this.character.damagedBy(5);
+    if (!this.character.isHurt() && !this.character.isJumping)
+      this.character.damagedBy(5);
   }
 
   /** Removes dead enemies and spent throwables from the level. */
