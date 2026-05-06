@@ -20,6 +20,7 @@ export class SoundManager {
   registerSound(key, src, loop = false) {
     const audio = new Audio(src);
     audio.loop = loop;
+    audio.volume = 0.1;
     audio.muted = this.muted;
     this.sounds[key] = audio;
     return audio;
