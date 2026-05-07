@@ -1,5 +1,31 @@
 /** @module constants */
 
+export const BOTTLE_GROUND = [
+  "assets/img/6_salsa_bottle/1_salsa_bottle_on_ground.png",
+  "assets/img/6_salsa_bottle/2_salsa_bottle_on_ground.png",
+];
+
+export const BACKGROUND_OBJECTS_4Clouds = [
+  "assets/img/5_background/layers/4_clouds/1.png",
+];
+
+export const BACKGROUND_OBJECTS_AIR = [
+  "assets/img/5_background/layers/air.png",
+];
+
+export const BACKGROUND_OBJECTS_THIRD_LAYER = [
+  "assets/img/5_background/layers/3_third_layer/1.png",
+  "assets/img/5_background/layers/3_third_layer/2.png",
+];
+export const BACKGROUND_OBJECTS_SECOND_LAYER = [
+  "assets/img/5_background/layers/2_second_layer/1.png",
+  "assets/img/5_background/layers/2_second_layer/2.png",
+];
+export const BACKGROUND_OBJECTS_FIRST_LAYER = [
+  "assets/img/5_background/layers/1_first_layer/1.png",
+  "assets/img/5_background/layers/1_first_layer/2.png",
+];
+
 export const CHARACTER_WALK = [
   "assets/img/2_character_pepe/2_walk/W-21.png",
   "assets/img/2_character_pepe/2_walk/W-22.png",
@@ -204,4 +230,10 @@ export const ALL_ASSET_PATHS = [
   ...STATUS_BAR_COIN,
   ...STATUS_BAR_BOTTLE,
   ...STATUS_BAR_BOSS,
+  ...BOTTLE_GROUND,
+  ...BACKGROUND_OBJECTS_4Clouds,
+  ...BACKGROUND_OBJECTS_AIR,
+  ...BACKGROUND_OBJECTS_THIRD_LAYER,
+  ...BACKGROUND_OBJECTS_SECOND_LAYER,
+  ...BACKGROUND_OBJECTS_FIRST_LAYER,
 ];

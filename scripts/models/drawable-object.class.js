@@ -21,8 +21,23 @@ export class DrawableObject {
    * @param {string} path - Image path
    */
   loadImageByPath(path) {
-    this.img = new Image();
-    this.img.src = path;
+    this.img = this.getCachedImageByPath(path);
+  }
+
+  /**
+   * Retrieves the image from the cache or creates a new Image instance if not found.
+   * @param {string} path - Image path
+   * @returns {Image} Image instance
+   */
+  getCachedImageByPath(path) {
+    return (
+      AssetLoader.cache[path] ||
+      (() => {
+        const img = new Image();
+        img.src = path;
+        return img;
+      })()
+    );
   }
 
   /**
@@ -31,13 +46,7 @@ export class DrawableObject {
    */
   loadImagesByPath(paths) {
     paths.forEach((path) => {
-      this.imagesCacheByPaths[path] =
-        AssetLoader.cache[path] ||
-        (() => {
-          const img = new Image();
-          img.src = path;
-          return img;
-        })();
+      this.imagesCacheByPaths[path] = this.getCachedImageByPath(path);
     });
   }
 

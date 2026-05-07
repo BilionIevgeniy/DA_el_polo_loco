@@ -6,30 +6,24 @@ import { Coin } from "../models/heroes/coin.class.js";
 import { Bottle } from "../models/heroes/bottle.class.js";
 import { Endboss } from "../models/heroes/endboss.class.js";
 import { Level } from "../models/level.class.js";
+import {
+  BACKGROUND_OBJECTS_AIR,
+  BACKGROUND_OBJECTS_FIRST_LAYER,
+  BACKGROUND_OBJECTS_SECOND_LAYER,
+  BACKGROUND_OBJECTS_THIRD_LAYER,
+} from "../models/constants.js";
 
 /** @returns {BackgroundObject[]} Complete parallax background for the level */
 function buildBackground() {
   const objects = [];
   for (let i = -2; i < 5; i++) {
     const x = 720 * i;
-    const num = (Math.abs(i) % 2) + 1;
+    const num = Math.abs(i) % 2;
     objects.push(
-      new BackgroundObject("assets/img/5_background/layers/air.png", x, 480),
-      new BackgroundObject(
-        `assets/img/5_background/layers/3_third_layer/${num}.png`,
-        x,
-        400,
-      ),
-      new BackgroundObject(
-        `assets/img/5_background/layers/2_second_layer/${num}.png`,
-        x,
-        400,
-      ),
-      new BackgroundObject(
-        `assets/img/5_background/layers/1_first_layer/${num}.png`,
-        x,
-        400,
-      ),
+      new BackgroundObject(BACKGROUND_OBJECTS_AIR[0], x, 480),
+      new BackgroundObject(BACKGROUND_OBJECTS_THIRD_LAYER[num], x, 400),
+      new BackgroundObject(BACKGROUND_OBJECTS_SECOND_LAYER[num], x, 400),
+      new BackgroundObject(BACKGROUND_OBJECTS_FIRST_LAYER[num], x, 400),
     );
   }
   return objects;

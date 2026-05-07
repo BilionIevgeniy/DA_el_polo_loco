@@ -1,3 +1,4 @@
+import { BACKGROUND_OBJECTS_4Clouds } from "../constants.js";
 import { MoveableObject } from "../moveable-object.class.js";
 
 /**
@@ -14,7 +15,7 @@ export class Cloud extends MoveableObject {
    */
   constructor(y, x) {
     super();
-    this.loadImageByPath("assets/img/5_background/layers/4_clouds/1.png");
+    this.loadImageByPath(BACKGROUND_OBJECTS_4Clouds[0]);
     this.y = y;
     this.x = x;
     this.animateMovementLeft();
