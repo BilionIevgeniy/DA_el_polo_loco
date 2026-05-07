@@ -292,7 +292,9 @@ export class Canvas {
    */
   showEndScreen(won) {
     this.sounds.stopAll();
+    this.keyboard.setIsEnd();
     document.getElementById("end-screen").classList.remove("hidden");
+    document.getElementById("mobile-controls").classList.add("hidden");
     document.getElementById("end-title").textContent = won
       ? "You Win! 🏆"
       : "Game Over!";

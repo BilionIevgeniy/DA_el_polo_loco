@@ -8,6 +8,7 @@ export class Keyboard {
   DOWN = false;
   SPACE = false;
   THROW = false;
+  end = false;
 
   constructor() {
     window.addEventListener("keydown", (e) => this.onKeyDown(e));
@@ -15,11 +16,16 @@ export class Keyboard {
     this.bindMobileButtons();
   }
 
+  setIsEnd() {
+    this.end = true;
+  }
+
   /**
    * Handles keydown events and maps them to action flags.
    * @param {KeyboardEvent} e
    */
   onKeyDown(e) {
+    if (this.end) return;
     const map = {
       ArrowLeft: "LEFT",
       ArrowRight: "RIGHT",
