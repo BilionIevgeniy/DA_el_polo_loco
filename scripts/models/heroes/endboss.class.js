@@ -82,7 +82,7 @@ export class Endboss extends MoveableObject {
    */
   chasePlayer(playerX) {
     const distance = playerX - this.x;
-    if (playerX === this.x) return;
+    if (Math.abs(distance) < 10) return;
     if (distance < 0) {
       this.x -= this.speed;
       this.flipped = false;
