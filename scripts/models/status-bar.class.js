@@ -5,7 +5,7 @@ import { DrawableObject } from "./drawable-object.class.js";
  */
 export class StatusBar extends DrawableObject {
   width = 200;
-  height = 60;
+  height = 45;
   percentage = 100;
 
   /**

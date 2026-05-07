@@ -55,22 +55,29 @@ function toggleTouchControls() {
   const controls = document.getElementById("mobile-controls");
   const toggleBtn = document.getElementById("touch-toggle-btn");
   const isVisible = controls.classList.toggle("visible");
+  isVisible
+    ? controls.classList.remove("hidden")
+    : controls.classList.add("hidden");
   toggleBtn.textContent = isVisible ? "🕹️" : "🎮";
 }
 
-/** Shows or hides the mobile touch controls depending on screen size. */
+/** Shows or hides the mobile touch controls */
 function showTouchControlsIfMobile() {
-  const isMobile = window.innerWidth <= 1060;
   const controls = document.getElementById("mobile-controls");
   const toggleBtn = document.getElementById("touch-toggle-btn");
-
   if (navigator.maxTouchPoints <= 0) {
     toggleBtn.classList.add("hidden");
     controls.classList.remove("visible");
     controls.classList.add("hidden");
     return;
   }
-  if (isMobile) {
+  toggleControls(controls, toggleBtn);
+}
+
+/** toggle the mobile touch controls depending on screen size. */
+function toggleControls(controls, toggleBtn) {
+  if (window.innerWidth <= 1060) {
+    // is mobile
     controls.classList.add("visible");
     toggleBtn.classList.add("hidden");
     toggleBtn.textContent = "🕹️";
@@ -107,5 +114,4 @@ document.addEventListener("DOMContentLoaded", async () => {
   const muted = localStorage.getItem("elPolloLoco_muted") === "true";
   document.getElementById("mute-btn").textContent = muted ? "🔇" : "🔊";
 });
-
 window.addEventListener("resize", showTouchControlsIfMobile);

@@ -29,8 +29,8 @@ export class Canvas {
     this.keyboard = new Keyboard();
     this.character = new Character(this);
     this.healthBar = new StatusBar(STATUS_BAR_HEALTH, 10, 10);
-    this.coinBar = new StatusBar(STATUS_BAR_COIN, 10, 40);
-    this.bottleBar = new StatusBar(STATUS_BAR_BOTTLE, 10, 70);
+    this.coinBar = new StatusBar(STATUS_BAR_COIN, 10, 42);
+    this.bottleBar = new StatusBar(STATUS_BAR_BOTTLE, 10, 75);
     this.bossBar = new StatusBar(STATUS_BAR_BOSS, 500, 10, 100);
   }
 
